@@ -1,0 +1,114 @@
+/* NavExpand.css */
+.nav-expand {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  background-color: #ffffff7a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.175);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  cursor: pointer;
+  z-index: 99;
+}
+
+.nav-expand .nav-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hamburger span {
+  width: 20px;
+  height: 2px;
+  background-color: #000;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.nav-expand.expanded .nav-icon {
+  display: none;
+}
+
+.nav-expand.expanded .hamburger {
+  transform: scale(0.8) rotate(180deg);
+  opacity: 0;
+}
+
+.nav-expand .nav-items {
+  opacity: 0;
+  display: flex;
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s;
+  pointer-events: none;
+}
+
+.nav-expand .nav-list {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.nav-expand .nav-list li {
+  color: #000;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.nav-expand .nav-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.search-input {
+  flex-shrink: 0;
+}
+
+.search-input .search-bar {
+  width: 150px;
+  height: 32px;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 0 12px;
+  outline: none;
+  font-size: 13px;
+  transition: border-color 0.2s;
+}
+
+.search-input .search-bar:focus {
+  border-color: #666;
+}
+
+.nav-expand.expanded {
+  width: 465px;
+}
+
+.nav-expand.expanded .nav-items {
+  opacity: 1;
+  pointer-events: auto;
+}

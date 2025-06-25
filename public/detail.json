@@ -1,0 +1,200 @@
+[
+    {
+        "title": "跳楼机",
+        "artist": "LBI利比",
+        "album": "跳楼机",
+        "year": 2025,
+        "genre": "Pop",
+        "art": "arts/1.jpg",
+        "cover": "vinylarts/1.png",
+        "url": "songs/1.mp3",
+        "lyric": "lyrics/1.json"
+    },
+    {
+        "title": "Despacito",
+        "artist": "Luis Fonsi ft. Daddy Yankee",
+        "album": "Despacito",
+        "year": 2017,
+        "genre": "Reggaeton, Latin Pop, Pop",
+        "art": "arts/2.jpg",
+        "cover": "vinylarts/2.png",
+        "url": "songs/2.mp3",
+        "lyric": "lyrics/2.json"
+    },
+    {
+        "title": "Stay",
+        "artist": "Justin Bieber & The Kid LAROI",
+        "album": "Album 3",
+        "year": 2021,
+        "genre": "Pop",
+        "art": "arts/3.jpg",
+        "cover": "vinylarts/3.png",
+        "url": "songs/3.mp3",
+        "lyric": "lyrics/3.json"
+    },
+    {
+        "title": "Intentions",
+        "artist": "Justin Bieber & Quavo",
+        "album": "Changes",
+        "year": 2020,
+        "genre": "R&B,Pop",
+        "art": "arts/4.jpg",
+        "cover": "vinylarts/4.png",
+        "url": "songs/4.mp3",
+        "lyric": "lyrics/4.json"
+    },
+    {
+        "title": "Like I'm Gonna Lose You",
+        "artist": "Meghan Trainor ft. John Legend",
+        "album": "Title",
+        "year": 2015,
+        "genre": "Pop",
+        "art": "arts/5.jpg",
+        "cover": "vinylarts/5.png",
+        "url": "songs/5.mp3",
+        "lyric": "lyrics/5.json"
+    },
+    {
+        "title": "Too Sweet",
+        "artist": "Hozier",
+        "album": "Unheard",
+        "year": 2024,
+        "genre": "Indie",
+        "art": "arts/6.jpg",
+        "cover": "vinylarts/6.png",
+        "url": "songs/6.mp3",
+        "lyric": "lyrics/6.json"
+    },
+    {
+        "title": "Espresso",
+        "artist": "Sabrina Carpenter",
+        "album": "Short n' Sweet",
+        "year": 2024,
+        "genre": "Disco, Pop",
+        "art": "arts/7.jpg",
+        "cover": "vinylarts/7.png",
+        "url": "songs/7.mp3",
+        "lyric": "lyrics/7.json"
+    },
+    {
+        "title": "Die with a smile",
+        "artist": "Bruno Mars & Lady Gaga",
+        "album": "Die With A Smile",
+        "year": 2024,
+        "genre": "Pop, Soft Rock",
+        "art": "arts/8.jpg",
+        "cover": "vinylarts/8.png",
+        "url": "songs/8.mp3",
+        "lyric": "lyrics/8.json"
+    },
+    {
+        "title": "ABCDEFU",
+        "artist": "Gayle",
+        "album": "ABCDEFU",
+        "year": 2021,
+        "genre": "Pop Rock",
+        "art": "arts/9.jpg",
+        "cover": "vinylarts/9.png",
+        "url": "songs/9.mp3",
+        "lyric": "lyrics/9.json"
+    },
+    {
+        "title": "10:35",
+        "artist": "Tiësto ft. Tate McRae",
+        "album": "Drive",
+        "year": 2022,
+        "genre": "Dance pop, EDM",
+        "art": "arts/10.jpg",
+        "cover": "vinylarts/10.png",
+        "url": "songs/10.mp3",
+        "lyric": "lyrics/10.json"
+    },
+    {
+        "title": "Way back home",
+        "artist": "Shaun",
+        "album": "Take",
+        "year": 2018,
+        "genre": "Pop, EDM",
+        "art": "arts/11.jpg",
+        "cover": "vinylarts/11.png",
+        "url": "songs/11.mp3",
+        "lyric": "lyrics/11.json"
+    },
+    {
+        "title": "Tabun",
+        "artist": "YOASOBI",
+        "album": "The Book",
+        "year": 2020,
+        "genre": "J-Pop",
+        "art": "arts/12.jpg",
+        "cover": "vinylarts/12.png",
+        "url": "songs/12.mp3",
+        "lyric": "lyrics/12.json"
+    },
+    {
+        "title": "夜に駆ける",
+        "artist": "YOASOBI",
+        "album": "The Book",
+        "year": 2020,
+        "genre": "J-Pop",
+        "art": "arts/13.jpg",
+        "cover": "vinylarts/13.png",
+        "url": "songs/13.mp3",
+        "lyric": "lyrics/13.json"
+    },
+    {
+        "title": "Idol",
+        "artist": "YOASOBI",
+        "album": "The Book 3",
+        "year": 2023,
+        "genre": "J-Pop",
+        "art": "arts/14.jpg",
+        "cover": "vinylarts/14.png",
+        "url": "songs/14.mp3",
+        "lyric": "lyrics/14.json"
+    },
+    {
+        "title": "群青",
+        "artist": "YOASOBI",
+        "album": "The Book",
+        "year": 2020,
+        "genre": "J-Pop",
+        "art": "arts/15.jpg",
+        "cover": "vinylarts/15.png",
+        "url": "songs/15.mp3",
+        "lyric": "lyrics/15.json"
+    },
+    {
+        "title": "ハルカ",
+        "artist": "YOASOBI",
+        "album": "The Book",
+        "year": 2020,
+        "genre": "J-Pop",
+        "art": "arts/16.jpg",
+        "cover": "vinylarts/16.png",
+        "url": "songs/16.mp3",
+        "lyric": "lyrics/16.json"
+    },
+    {
+        "title": "スパークル",
+        "artist": "幾田りら",
+        "album": "Sketch",
+        "year": 2023,
+        "genre": "J-Pop",
+        "art": "arts/17.jpg",
+        "cover": "vinylarts/17.png",
+        "url": "songs/17.mp3",
+        "lyric": "lyrics/17.json"
+    },
+    {
+        "title": "きらり",
+        "artist": "Fujii Kaze",
+        "album": "Love All Serve All",
+        "year": 2021,
+        "genre": "Pop",
+        "art": "arts/18.jpg",
+        "cover": "vinylarts/18.png",
+        "url": "songs/18.mp3",
+        "lyric": "lyrics/18.json"
+    }
+]
