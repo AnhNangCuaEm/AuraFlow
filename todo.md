@@ -1,8 +1,6 @@
 # Todo list
 
-- Adjust Logo
 - Adjust expanded media control
-- Adjust UI ( use bootstrap icon )
 - Make navbar work
 - Add highlight lyrics
 - Add loading screen

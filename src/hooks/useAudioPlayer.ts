@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Song, LyricLine, PlayerState } from '@/types/music';
-import { musicService } from '@/services/musicService';
+import { musicService } from '@/services/MusicService';
 
 export const useAudioPlayer = () => {
     const audioRef = useRef<HTMLAudioElement | null>(null);

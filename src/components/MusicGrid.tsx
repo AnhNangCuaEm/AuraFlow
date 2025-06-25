@@ -1,19 +1,22 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useMusic } from '@/contexts/MusicContext';
 import { Song } from '@/types/music';
-import { musicService } from '@/services/musicService';
+import { musicService } from '@/services/MusicService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
 import '../css/MusicGrid.css';
 
 export default function MusicGrid() {
     const [songs, setSongs] = useState<Song[]>([]);
-    const { playSong, playerState } = useMusic();
+    const { playSong, togglePlayPause, playerState } = useMusic();
+    const vinylRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+    const rotationRefs = useRef<{ [key: string]: number }>({});
+    const animationRefs = useRef<{ [key: string]: number | null }>({});
 
-    // Hàm shuffle array
+    // Shuffle function to randomize song order
     const shuffleArray = (array: Song[]) => {
         const shuffled = [...array];
         for (let i = shuffled.length - 1; i > 0; i--) {
@@ -27,7 +30,6 @@ export default function MusicGrid() {
         const loadSongs = async () => {
             try {
                 const playlist = await musicService.loadPlaylist();
-                // Tự động shuffle mỗi lần load trang
                 const shuffledPlaylist = shuffleArray(playlist);
                 setSongs(shuffledPlaylist);
             } catch (error) {
@@ -38,9 +40,55 @@ export default function MusicGrid() {
         loadSongs();
     }, []);
 
+    // Effect to control vinyl animation
+    useEffect(() => {
+        if (playerState.currentSong) {
+            const songKey = playerState.currentSong.title;
+            const vinylElement = vinylRefs.current[songKey];
+            
+            if (vinylElement) {
+                if (playerState.isPlaying) {
+                    //Start animation from last position
+                    const startRotation = rotationRefs.current[songKey] || 0;
+                    const startTime = Date.now();
+                    
+                    const animate = () => {
+                        const elapsed = Date.now() - startTime;
+                        const rotation = startRotation + (elapsed / 10000) * 360;
+                        
+                        rotationRefs.current[songKey] = rotation % 360;
+                        vinylElement.style.transform = `rotate(${rotation}deg)`;
+                        
+                        animationRefs.current[songKey] = requestAnimationFrame(animate);
+                    };
+                    
+                    animationRefs.current[songKey] = requestAnimationFrame(animate);
+                } else {
+                    // Stop animation and keep the last rotation
+                    if (animationRefs.current[songKey]) {
+                        cancelAnimationFrame(animationRefs.current[songKey]!);
+                        animationRefs.current[songKey] = null;
+                    }
+                }
+            }
+        }
+
+        
+        return () => {
+            Object.values(animationRefs.current).forEach(animId => {
+                if (animId) cancelAnimationFrame(animId);
+            });
+        };
+    }, [playerState.isPlaying, playerState.currentSong]);
+
     const handleSongClick = async (song: Song, index: number) => {
         try {
-            await playSong(song, index);
+            // If the clicked song is currently playing, toggle pause
+            if (playerState.currentSong?.title === song.title && playerState.isPlaying) {
+                await togglePlayPause();
+            } else {
+                await playSong(song, index);
+            }
         } catch (error) {
             console.error('Error playing song:', error);
         }
@@ -62,26 +110,32 @@ export default function MusicGrid() {
                 {songs.map((song, index) => (
                     <div
                         key={index}
-                        className={`music-card ${playerState.currentSong?.title === song.title ? 'active' : ''
-                            }`}
+                        className={`music-card ${playerState.currentSong?.title === song.title ? 'active' : ''}`}
                         onClick={() => handleSongClick(song, index)}
                     >
-                        <div className="vinyl-container">
-                            <Image
-                                src={musicService.getVinylArtUrl(song.cover)}
-                                alt={`${song.title} vinyl art`}
-                                width={200}
-                                height={200}
-                                className="vinyl-art"
-                                unoptimized
-                            />
+                        <div 
+                            className="vinyl-container"
+                        >
+                            <div 
+                                className="vinyl-image"
+                                ref={el => { vinylRefs.current[song.title] = el; }}
+                            >
+                                <Image
+                                    src={musicService.getVinylArtUrl(song.cover)}
+                                    alt={`${song.title} vinyl art`}
+                                    width={200}
+                                    height={200}
+                                    className="vinyl-art"
+                                    unoptimized
+                                />
+                            </div>
 
                             <div className="play-overlay">
                                 <div className="play-button">
                                     {playerState.currentSong?.title === song.title && playerState.isPlaying ? (
-                                        <FontAwesomeIcon icon={faPause}/>
+                                        <FontAwesomeIcon icon={faPause} />
                                     ) : (
-                                    <FontAwesomeIcon icon={faPlay} />
+                                        <FontAwesomeIcon icon={faPlay} />
                                     )}
                                 </div>
                             </div>
@@ -104,7 +158,7 @@ export default function MusicGrid() {
 
             {songs.length === 0 && (
                 <div className="text-center py-12">
-                    <div className="text-gray-500 text-lg">Loading music collection...</div>
+                    <div className="text-gray-900 text-lg">Loading music collection...</div>
                 </div>
             )}
         </div>

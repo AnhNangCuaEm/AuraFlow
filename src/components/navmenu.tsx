@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from "react";
-import "../css/navmenu.css";
+import "../css/NavMenu.css";
 
 export default function NavExpand() {
     const [hovered, setHovered] = useState(false);
@@ -18,7 +18,7 @@ export default function NavExpand() {
     const handleMouseLeave = () => {
         // Don't hide if input is focused
         if (inputFocused) return;
-        
+
         timeoutRef.current = setTimeout(() => {
             setHovered(false);
         }, 2000);

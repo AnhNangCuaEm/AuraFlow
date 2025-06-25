@@ -3,18 +3,18 @@
 import React, { useState } from "react";
 import Image from 'next/image'
 import { useMusic } from "@/contexts/MusicContext";
-import { musicService } from "@/services/musicService";
+import { musicService } from "@/services/MusicService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { 
-    faMusic, 
-    faBackward, 
-    faPlay, 
-    faPause, 
-    faForward, 
+import {
+    faMusic,
+    faBackward,
+    faPlay,
+    faPause,
+    faForward,
     faChevronUp,
     faChevronDown
 } from '@fortawesome/free-solid-svg-icons'
-import "../css/mediacontrol.css";
+import "../css/MediaControl.css";
 
 export default function MediaControl() {
     const [expanded, setExpanded] = useState(false);
@@ -95,8 +95,8 @@ export default function MediaControl() {
                     </button>
 
                     <button className="control-btn play-btn" onClick={togglePlayPause}>
-                        <FontAwesomeIcon 
-                            icon={playerState.isPlaying ? faPause : faPlay} 
+                        <FontAwesomeIcon
+                            icon={playerState.isPlaying ? faPause : faPlay}
                             size="lg"
                         />
                     </button>
@@ -107,8 +107,8 @@ export default function MediaControl() {
                 </div>
 
                 <button className="expand-btn" onClick={toggleExpanded}>
-                    <FontAwesomeIcon 
-                        icon={expanded ? faChevronDown : faChevronUp} 
+                    <FontAwesomeIcon
+                        icon={expanded ? faChevronDown : faChevronUp}
                     />
                 </button>
             </div>
