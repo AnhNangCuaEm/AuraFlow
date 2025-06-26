@@ -1,11 +1,12 @@
 # Todo list
 
-- Adjust expanded media control
+- Adjust expanded media control animation
 - Make navbar work
 - Add highlight lyrics
 - Add loading screen
 - Add search feature
 - Add loop,shuffle button
+- Add volume slide bar
 - Loop,shuffle logic
 - Add color thief libary to change background
 - Try liquid glass design

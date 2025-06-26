@@ -98,6 +98,7 @@ export default function MusicGrid() {
         <div className="music-grid-container">
             <h1 className="mb-4 md:mb-6 lg:mb-8">
                 <Image
+                    priority={true}
                     src="/logo.png"
                     alt="Music Machine Logo"
                     width={200}
@@ -121,12 +122,14 @@ export default function MusicGrid() {
                                 ref={el => { vinylRefs.current[song.title] = el; }}
                             >
                                 <Image
+                                    priority={false}
                                     src={musicService.getVinylArtUrl(song.cover)}
                                     alt={`${song.title} vinyl art`}
                                     width={200}
                                     height={200}
                                     className="vinyl-art"
-                                    unoptimized
+                                    placeholder='blur'
+                                    blurDataURL={'../../public/blur.png'}
                                 />
                             </div>
 

@@ -77,10 +77,13 @@ export default function MediaControl() {
                     <div className="expanded-content">
                         <div className="large-art">
                             <Image
+                                priority={false}
                                 src={artUrl}
                                 alt="Album Art"
-                                width={240}
-                                height={240}
+                                width={400}
+                                height={400}
+                                placeholder='blur'
+                                blurDataURL={'../../public/blur.png'}
                             />
                         </div>
 
