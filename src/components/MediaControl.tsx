@@ -18,13 +18,15 @@ import "../css/MediaControl.css";
 
 export default function MediaControl() {
     const [expanded, setExpanded] = useState(false);
+    const [activeTab, setActiveTab] = useState<'lyrics' | 'nextup'>('lyrics');
     const {
         playerState,
         togglePlayPause,
         next,
         previous,
         seekTo,
-        getCurrentLyricLine
+        getCurrentLyricLine,
+        queue
     } = useMusic();
 
     const formatTime = (seconds: number) => {
@@ -47,6 +49,9 @@ export default function MediaControl() {
         ? musicService.getArtUrl(playerState.currentSong.art)
         : "/default-art.jpg";
 
+    // Mock data for next up - replace with actual queue data
+    const nextUpSongs = queue?.slice(1, 6) || [];
+
     if (!playerState.currentSong) {
         return (
             <div className="media-control">
@@ -66,6 +71,83 @@ export default function MediaControl() {
 
     return (
         <div className={`media-control ${expanded ? "expanded" : ""}`}>
+            {expanded && (
+                <>
+
+                    <div className="expanded-content">
+                        <div className="large-art">
+                            <Image
+                                src={artUrl}
+                                alt="Album Art"
+                                width={240}
+                                height={240}
+                            />
+                        </div>
+
+                        <div className="content-container">
+                            <div className="tab-buttons">
+                                <button
+                                    className={`tab-btn ${activeTab === 'lyrics' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('lyrics')}
+                                >
+                                    Lyrics
+                                </button>
+                                <button
+                                    className={`tab-btn ${activeTab === 'nextup' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('nextup')}
+                                >
+                                    Next Up
+                                </button>
+                            </div>
+                            {activeTab === 'lyrics' ? (
+                                <div className="lyrics-container">
+                                    <h3>{playerState.currentSong.title}</h3>
+                                    <p className="artist-name">{playerState.currentSong.artist}</p>
+                                    <div className="lyrics-text">
+                                        {playerState.lyrics.map((line, index) => (
+                                            <p
+                                                key={index}
+                                                className={currentLyric?.text === line.text ? 'current-lyric' : ''}
+                                            >
+                                                {line.text}
+                                            </p>
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="next-up-container">
+                                    <h3>Next Up</h3>
+                                    <div className="next-up-list">
+                                        {nextUpSongs.length > 0 ? (
+                                            nextUpSongs.map((song, index) => (
+                                                <div key={song.id || index} className="next-up-item">
+                                                    <div className="next-up-art">
+                                                        <Image
+                                                            src={musicService.getArtUrl(song.art)}
+                                                            alt={song.title}
+                                                            width={40}
+                                                            height={40}
+                                                        />
+                                                    </div>
+                                                    <div className="next-up-info">
+                                                        <p className="next-up-title">{song.title}</p>
+                                                        <p className="next-up-artist">{song.artist}</p>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p style={{ color: '#666', fontStyle: 'italic' }}>
+                                                No songs in queue
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </>
+            )}
+
             <div className="media-content">
                 <div className="album-art">
                     <Image
@@ -112,33 +194,6 @@ export default function MediaControl() {
                     />
                 </button>
             </div>
-
-            {expanded && (
-                <div className="expanded-content">
-                    <div className="large-art">
-                        <Image
-                            src={artUrl}
-                            alt="Album Art"
-                            width={300}
-                            height={300}
-                        />
-                    </div>
-                    <div className="lyrics-container">
-                        <h3>{playerState.currentSong.title}</h3>
-                        <p className="artist-name">{playerState.currentSong.artist}</p>
-                        <div className="lyrics-text">
-                            {playerState.lyrics.map((line, index) => (
-                                <p
-                                    key={index}
-                                    className={currentLyric?.text === line.text ? 'current-lyric' : ''}
-                                >
-                                    {line.text}
-                                </p>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
