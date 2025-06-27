@@ -101,11 +101,6 @@ export default function MediaControl() {
         const newVolume = parseInt(e.target.value);
         
         setVolume(newVolume / 100);
-        
-        const audioElements = document.querySelectorAll('audio');
-        audioElements.forEach(audio => {
-            audio.volume = newVolume / 100;
-        });
     };
 
     const currentLyric = getCurrentLyricLine();
