@@ -12,7 +12,10 @@ import {
     faPause,
     faForward,
     faChevronUp,
-    faChevronDown
+    faChevronDown,
+    faRepeat,
+    faShuffle,
+    faVolumeHigh
 } from '@fortawesome/free-solid-svg-icons'
 import "../css/MediaControl.css";
 
@@ -20,15 +23,23 @@ export default function MediaControl() {
     const [expanded, setExpanded] = useState(false);
     const [activeTab, setActiveTab] = useState<'lyrics' | 'nextup'>('lyrics');
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const [isLooping, setIsLooping] = useState(false);
+    const [isShuffling, setIsShuffling] = useState(false);
+    const [showVolumeSlider, setShowVolumeSlider] = useState(false);
+
     const {
         playerState,
         togglePlayPause,
         next,
         previous,
         seekTo,
+        setVolume,
         getCurrentLyricLine,
-        queue
     } = useMusic();
+
+    // Debug audio player state
+    useEffect(() => {
+    }, [playerState.volume]);
 
     // Track when song changes from null to a song
     useEffect(() => {
@@ -38,6 +49,21 @@ export default function MediaControl() {
             setTimeout(() => setIsTransitioning(false), 800);
         }
     }, [playerState.currentSong]);
+
+    // Close volume slider when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as Element;
+            if (!target.closest('.volume-container')) {
+                setShowVolumeSlider(false);
+            }
+        };
+
+        if (showVolumeSlider) {
+            document.addEventListener('click', handleClickOutside);
+            return () => document.removeEventListener('click', handleClickOutside);
+        }
+    }, [showVolumeSlider]);
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
@@ -54,12 +80,40 @@ export default function MediaControl() {
         setExpanded(!expanded);
     };
 
+    const toggleLoop = () => {
+        setIsLooping(!isLooping);
+        // Here you would implement the actual loop functionality
+        console.log('Loop toggled:', !isLooping);
+    };
+
+    const toggleShuffle = () => {
+        setIsShuffling(!isShuffling);
+        // Here you would implement the actual shuffle functionality
+        console.log('Shuffle toggled:', !isShuffling);
+    };
+
+    const toggleVolumeSlider = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setShowVolumeSlider(!showVolumeSlider);
+    };
+
+    const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newVolume = parseInt(e.target.value);
+        
+        setVolume(newVolume / 100);
+        
+        const audioElements = document.querySelectorAll('audio');
+        audioElements.forEach(audio => {
+            audio.volume = newVolume / 100;
+        });
+    };
+
     const currentLyric = getCurrentLyricLine();
     const artUrl = playerState.currentSong
         ? musicService.getArtUrl(playerState.currentSong.art)
         : "/default-art.jpg";
 
-    const nextUpSongs = queue?.slice(1, 6) || [];
+    const nextUpSongs: any[] = [];  // Remove queue for now
 
     if (!playerState.currentSong) {
         return (
@@ -181,6 +235,7 @@ export default function MediaControl() {
                 </div>
 
                 <div className="control-buttons">
+
                     <button className="control-btn" onClick={previous}>
                         <FontAwesomeIcon icon={faBackward} />
                     </button>
@@ -195,6 +250,55 @@ export default function MediaControl() {
                     <button className="control-btn" onClick={next}>
                         <FontAwesomeIcon icon={faForward} />
                     </button>
+                    {/* Loop button - only visible when expanded */}
+                    {expanded && (
+                        <button
+                            className={`control-btn loop-btn ${isLooping ? 'active' : ''}`}
+                            onClick={toggleLoop}
+                            title="Loop"
+                        >
+                            <FontAwesomeIcon icon={faRepeat} />
+                        </button>
+                    )}
+
+
+                    {/* Shuffle button - only visible when expanded */}
+                    {expanded && (
+                        <button
+                            className={`control-btn shuffle-btn ${isShuffling ? 'active' : ''}`}
+                            onClick={toggleShuffle}
+                            title="Shuffle"
+                        >
+                            <FontAwesomeIcon icon={faShuffle} />
+                        </button>
+                    )}
+
+                    {/* Volume button with slider - only visible when expanded */}
+                    {expanded && (
+                        <div className={`volume-container ${showVolumeSlider ? 'show-slider' : ''}`}>
+                            <button
+                                className="control-btn volume-btn"
+                                onClick={toggleVolumeSlider}
+                                title="Volume"
+                            >
+                                <FontAwesomeIcon icon={faVolumeHigh} />
+                            </button>
+
+                            {showVolumeSlider && (
+                                <>
+                                    <div className="volume-slider-backdrop"></div>
+                                    <input
+                                        type="range"
+                                        min="0"
+                                        max="100"
+                                        value={Math.round(playerState.volume * 100)}
+                                        onChange={handleVolumeChange}
+                                        className="volume-slider"
+                                    />
+                                </>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 <button className="expand-btn" onClick={toggleExpanded}>

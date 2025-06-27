@@ -16,6 +16,7 @@ export const useAudioPlayer = () => {
         playlist: [],
         lyrics: [],
         isLoading: false,
+        showVolumeSlider: false, // Thêm mới
     });
 
     useEffect(() => {
@@ -167,6 +168,29 @@ export const useAudioPlayer = () => {
         }));
     }, []);
 
+    // Thêm các functions mới cho volume
+    const volumeUp = useCallback(() => {
+        setVolume(Math.min(1, playerState.volume + 0.1));
+    }, [playerState.volume, setVolume]);
+
+    const volumeDown = useCallback(() => {
+        setVolume(Math.max(0, playerState.volume - 0.1));
+    }, [playerState.volume, setVolume]);
+
+    const toggleVolumeSlider = useCallback(() => {
+        setPlayerState(prev => ({
+            ...prev,
+            showVolumeSlider: !prev.showVolumeSlider,
+        }));
+    }, []);
+
+    const hideVolumeSlider = useCallback(() => {
+        setPlayerState(prev => ({
+            ...prev,
+            showVolumeSlider: false,
+        }));
+    }, []);
+
     const getCurrentLyricLine = useCallback((): LyricLine | null => {
         const { lyrics, currentTime } = playerState;
         if (lyrics.length === 0) return null;
@@ -188,6 +212,10 @@ export const useAudioPlayer = () => {
         previous,
         seekTo,
         setVolume,
+        volumeUp,
+        volumeDown,
+        toggleVolumeSlider,
+        hideVolumeSlider,
         getCurrentLyricLine,
     };
 };

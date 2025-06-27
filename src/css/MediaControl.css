@@ -45,7 +45,6 @@
   padding: 12px 20px;
   gap: 16px;
   min-height: 60px;
-  max-width: 519px;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -318,7 +317,7 @@
   transform: translateX(30px);
   opacity: 0;
   transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.5s,
-              opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.5s;
+    opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.5s;
 }
 
 .media-control.expanded .content-container {
@@ -326,7 +325,8 @@
   opacity: 1;
 }
 
-.lyrics-container, .next-up-container {
+.lyrics-container,
+.next-up-container {
   display: flex;
   flex-direction: column;
   height: 355px;
@@ -444,7 +444,7 @@
 }
 
 .lyrics-text p.current-lyric {
-  color: #007AFF;
+  color: #007aff;
   font-weight: 600;
   transform: scale(1.05);
 }
@@ -470,4 +470,176 @@
 .lyrics-text::-webkit-scrollbar-thumb:hover,
 .next-up-list::-webkit-scrollbar-thumb:hover {
   background: #999;
+}
+
+/* Expanded controls - additional buttons when expanded */
+.media-control.expanded .control-buttons {
+  gap: 12px;
+}
+
+.loop-btn,
+.shuffle-btn,
+.volume-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #333;
+  font-size: 18px;
+  transition: all 0.2s;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.media-control.expanded .loop-btn,
+.media-control.expanded .shuffle-btn,
+.media-control.expanded .volume-btn {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.3s;
+}
+
+.loop-btn:hover,
+.shuffle-btn:hover,
+.volume-btn:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.1);
+}
+
+.loop-btn:active,
+.shuffle-btn:active,
+.volume-btn:active {
+  transform: scale(0.9);
+  background-color: #e0e0e0;
+}
+
+/* Active states for loop and shuffle */
+.loop-btn.active,
+.shuffle-btn.active {
+  background-color: #007aff;
+  color: white;
+}
+
+.loop-btn.active:hover,
+.shuffle-btn.active:hover {
+  background-color: #0056cc;
+}
+
+/* Volume slider container */
+.volume-container {
+  position: relative;
+  display: inline-block;
+}
+
+.volume-slider {
+  appearance: none;
+  position: absolute;
+  bottom: 53px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  border: 1px solid #3d3d3d;
+  border-radius: 9999px;
+  background: black;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1001;
+}
+
+.volume-container.show-slider .volume-slider {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* slider styling */
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #232323;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #232323;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+/* Volume slider backdrop */
+.volume-slider-backdrop {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.volume-container.show-slider .volume-slider-backdrop {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Animation for expanded buttons */
+.media-control.expanded .control-buttons .loop-btn {
+  animation: slideInExpandedBtn 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both;
+}
+
+.media-control.expanded .control-buttons .shuffle-btn {
+  animation: slideInExpandedBtn 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.4s both;
+}
+
+.media-control.expanded .control-buttons .volume-btn {
+  animation: slideInExpandedBtn 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.6s both;
+}
+
+@keyframes slideInExpandedBtn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Hide additional buttons in compact mode */
+.media-control:not(.expanded) .loop-btn,
+.media-control:not(.expanded) .shuffle-btn,
+.media-control:not(.expanded) .volume-btn {
+  display: none;
 }

@@ -25,4 +25,5 @@ export interface PlayerState {
     playlist: Song[];
     lyrics: LyricLine[];
     isLoading: boolean;
+    showVolumeSlider: boolean;
 }
