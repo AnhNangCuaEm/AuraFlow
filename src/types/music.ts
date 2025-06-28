@@ -26,4 +26,5 @@ export interface PlayerState {
     lyrics: LyricLine[];
     isLoading: boolean;
     showVolumeSlider: boolean;
+    isLooping: boolean;
 }

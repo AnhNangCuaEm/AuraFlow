@@ -24,7 +24,6 @@ export default function MediaControl() {
     const [expanded, setExpanded] = useState(false);
     const [activeTab, setActiveTab] = useState<'lyrics' | 'nextup'>('lyrics');
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const [isLooping, setIsLooping] = useState(false);
     const [isShuffling, setIsShuffling] = useState(false);
     const [showVolumeSlider, setShowVolumeSlider] = useState(false);
 
@@ -35,6 +34,7 @@ export default function MediaControl() {
         previous,
         seekTo,
         setVolume,
+        setLoop,
     } = useMusic();
 
     // Function to get lyric line class based on current time
@@ -49,10 +49,10 @@ export default function MediaControl() {
             return 'current-lyric';
         }
         
-        // Next line (upcoming) - 2 seconds before
-        if (currentTime >= (lineTimeInSeconds - 2) && currentTime < lineTimeInSeconds) {
-            return 'next-lyric';
-        }
+        // // Next line (upcoming) - 2 seconds before
+        // if (currentTime >= (lineTimeInSeconds - 2) && currentTime < lineTimeInSeconds) {
+        //     return 'next-lyric';
+        // }
         
         // Passed lines
         if (currentTime > lineTimeInSeconds && currentTime >= nextLineTimeInSeconds) {
@@ -125,9 +125,8 @@ export default function MediaControl() {
     };
 
     const toggleLoop = () => {
-        setIsLooping(!isLooping);
-        // Here you would implement the actual loop functionality
-        console.log('Loop toggled:', !isLooping);
+        const newLoopState = !playerState.isLooping;
+        setLoop(newLoopState);
     };
 
     const toggleShuffle = () => {
@@ -298,7 +297,7 @@ export default function MediaControl() {
                     {/* Loop button - only visible when expanded */}
                     {expanded && (
                         <button
-                            className={`control-btn loop-btn ${isLooping ? 'active' : ''}`}
+                            className={`control-btn loop-btn ${playerState.isLooping ? 'active' : ''}`}
                             onClick={toggleLoop}
                             title="Loop"
                         >

@@ -17,6 +17,7 @@ export const useAudioPlayer = () => {
         lyrics: [],
         isLoading: false,
         showVolumeSlider: false,
+        isLooping: false,
     });
 
     useEffect(() => {
@@ -38,7 +39,16 @@ export const useAudioPlayer = () => {
         };
 
         const handleEnded = () => {
-            next();
+            // Check if looping is enabled
+            if (playerState.isLooping) {
+                // Restart the current song
+                if (audioRef.current) {
+                    audioRef.current.currentTime = 0;
+                    audioRef.current.play();
+                }
+            } else {
+                next();
+            }
         };
 
         const handleLoadStart = () => {
@@ -168,7 +178,6 @@ export const useAudioPlayer = () => {
         }));
     }, []);
 
-    // Thêm các functions mới cho volume
     const volumeUp = useCallback(() => {
         setVolume(Math.min(1, playerState.volume + 0.1));
     }, [playerState.volume, setVolume]);
@@ -188,6 +197,16 @@ export const useAudioPlayer = () => {
         setPlayerState(prev => ({
             ...prev,
             showVolumeSlider: false,
+        }));
+    }, []);
+
+    const setLoop = useCallback((isLoop: boolean) => {
+        if (!audioRef.current) return;
+        
+        audioRef.current.loop = isLoop;
+        setPlayerState(prev => ({
+            ...prev,
+            isLooping: isLoop,
         }));
     }, []);
 
@@ -215,6 +234,7 @@ export const useAudioPlayer = () => {
         previous,
         seekTo,
         setVolume,
+        setLoop,
         volumeUp,
         volumeDown,
         toggleVolumeSlider,

@@ -298,7 +298,7 @@
   border-radius: 16px;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 20px 3px #0003;
 }
 
 .large-art img {
@@ -452,11 +452,6 @@
   font-size: 18px;
 }
 
-.lyrics-text p.next-lyric {
-  color: #888;
-  font-weight: 500;
-}
-
 .lyrics-text p.passed-lyric {
   color: #999;
   opacity: 0.7;
@@ -525,27 +520,15 @@
 .loop-btn:hover,
 .shuffle-btn:hover,
 .volume-btn:hover {
-  background-color: #f0f0f0;
+  background-color: #ffffffd8;
   transform: scale(1.1);
-}
-
-.loop-btn:active,
-.shuffle-btn:active,
-.volume-btn:active {
-  transform: scale(0.9);
-  background-color: #e0e0e0;
 }
 
 /* Active states for loop and shuffle */
 .loop-btn.active,
 .shuffle-btn.active {
-  background-color: #007aff;
+  background-color: #000000;
   color: white;
-}
-
-.loop-btn.active:hover,
-.shuffle-btn.active:hover {
-  background-color: #0056cc;
 }
 
 /* Volume slider container */

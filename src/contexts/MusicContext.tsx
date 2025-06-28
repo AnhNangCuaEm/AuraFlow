@@ -9,11 +9,11 @@ interface MusicContextType {
     loadPlaylist: () => Promise<Song[]>;
     playSong: (song: Song, index: number) => Promise<void>;
     togglePlayPause: () => Promise<void>;
-    
     next: () => void;
     previous: () => void;
     seekTo: (time: number) => void;
     setVolume: (volume: number) => void;
+    setLoop: (isLooping: boolean) => void;
 }
 
 const MusicContext = createContext<MusicContextType | undefined>(undefined);
