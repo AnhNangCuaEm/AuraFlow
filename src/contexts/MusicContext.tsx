@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, ReactNode } from 'react';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
-import { PlayerState, Song, LyricLine } from '@/types/music';
+import { PlayerState, Song } from '@/types/music';
 
 interface MusicContextType {
     playerState: PlayerState;
@@ -14,7 +14,6 @@ interface MusicContextType {
     previous: () => void;
     seekTo: (time: number) => void;
     setVolume: (volume: number) => void;
-    getCurrentLyricLine: () => LyricLine | null;
 }
 
 const MusicContext = createContext<MusicContextType | undefined>(undefined);

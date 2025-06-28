@@ -16,7 +16,7 @@ export const useAudioPlayer = () => {
         playlist: [],
         lyrics: [],
         isLoading: false,
-        showVolumeSlider: false, // Thêm mới
+        showVolumeSlider: false,
     });
 
     useEffect(() => {
@@ -195,8 +195,11 @@ export const useAudioPlayer = () => {
         const { lyrics, currentTime } = playerState;
         if (lyrics.length === 0) return null;
 
+        // Convert current time to milliseconds for comparison
+        const currentTimeMs = currentTime * 1000;
+
         for (let i = lyrics.length - 1; i >= 0; i--) {
-            if (currentTime >= lyrics[i].time) {
+            if (currentTimeMs >= lyrics[i].time) {
                 return lyrics[i];
             }
         }

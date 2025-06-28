@@ -428,25 +428,43 @@
 
 .lyrics-text {
   flex: 1;
+  max-height: 300px;
   overflow-y: auto;
-  padding: 16px;
-  font-size: 16px;
+  padding: 10px;
   line-height: 1.6;
-  color: #333;
+  font-size: 16px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.3);
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
 }
 
 .lyrics-text p {
-  margin: 0 0 8px 0;
-  transition: all 0.3s;
+  margin: 8px 0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  color: #666;
+  cursor: pointer;
 }
 
 .lyrics-text p.current-lyric {
-  color: #007aff;
+  color: rgb(0, 0, 0);
   font-weight: 600;
-  transform: scale(1.05);
+  font-size: 18px;
+}
+
+.lyrics-text p.next-lyric {
+  color: #888;
+  font-weight: 500;
+}
+
+.lyrics-text p.passed-lyric {
+  color: #999;
+  opacity: 0.7;
+}
+
+.lyrics-text p:hover {
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.625);
 }
 
 /* Scrollbar styling */

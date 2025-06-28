@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from 'next/image'
 import { useMusic } from "@/contexts/MusicContext";
 import { musicService } from "@/services/MusicService";
+import { LyricLine } from "@/types/music";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faMusic,
@@ -34,8 +35,51 @@ export default function MediaControl() {
         previous,
         seekTo,
         setVolume,
-        getCurrentLyricLine,
     } = useMusic();
+
+    // Function to get lyric line class based on current time
+    const getLyricLineClass = (line: LyricLine, index: number) => {
+        const currentTime = playerState.currentTime; // This is in seconds
+        const lineTimeInSeconds = line.time / 1000; // Convert milliseconds to seconds
+        const nextLine = playerState.lyrics[index + 1];
+        const nextLineTimeInSeconds = nextLine ? nextLine.time / 1000 : Infinity;
+        
+        // Current line
+        if (currentTime >= lineTimeInSeconds && currentTime < nextLineTimeInSeconds) {
+            return 'current-lyric';
+        }
+        
+        // Next line (upcoming) - 2 seconds before
+        if (currentTime >= (lineTimeInSeconds - 2) && currentTime < lineTimeInSeconds) {
+            return 'next-lyric';
+        }
+        
+        // Passed lines
+        if (currentTime > lineTimeInSeconds && currentTime >= nextLineTimeInSeconds) {
+            return 'passed-lyric';
+        }
+        
+        return '';
+    };
+
+    // Function to handle lyric line click for seeking
+    const handleLyricClick = (timeInMs: number) => {
+        const timeInSeconds = timeInMs / 1000; // Convert milliseconds to seconds
+        seekTo(timeInSeconds);
+    };
+
+    // Auto scroll to current lyric
+    useEffect(() => {
+        if (expanded && activeTab === 'lyrics') {
+            const currentElement = document.querySelector('.current-lyric');
+            if (currentElement) {
+                currentElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }
+    }, [playerState.currentTime, expanded, activeTab]);
 
     // Debug audio player state
     useEffect(() => {
@@ -103,7 +147,6 @@ export default function MediaControl() {
         setVolume(newVolume / 100);
     };
 
-    const currentLyric = getCurrentLyricLine();
     const artUrl = playerState.currentSong
         ? musicService.getArtUrl(playerState.currentSong.art)
         : "/default-art.jpg";
@@ -163,14 +206,21 @@ export default function MediaControl() {
                                 <h3>{playerState.currentSong.title}</h3>
                                 <p className="artist-name">{playerState.currentSong.artist}</p>
                                 <div className="lyrics-text">
-                                    {playerState.lyrics.map((line, index) => (
-                                        <p
-                                            key={index}
-                                            className={currentLyric?.text === line.text ? 'current-lyric' : ''}
-                                        >
-                                            {line.text}
+                                    {playerState.lyrics.length > 0 ? (
+                                        playerState.lyrics.map((line, index) => (
+                                            <p
+                                                key={index}
+                                                className={getLyricLineClass(line, index)}
+                                                onClick={() => handleLyricClick(line.time)}
+                                            >
+                                                {line.text}
+                                            </p>
+                                        ))
+                                    ) : (
+                                        <p style={{ color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
+                                            No lyrics available
                                         </p>
-                                    ))}
+                                    )}
                                 </div>
                             </div>
                         ) : (
