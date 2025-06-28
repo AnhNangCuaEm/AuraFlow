@@ -196,5 +196,27 @@
         "cover": "vinylarts/18.png",
         "url": "songs/18.mp3",
         "lyric": "lyrics/18.json"
+    },
+    {
+        "title": "Dangerously",
+        "artist": "Charlie Puth",
+        "album": "Nine Track Mind",
+        "year": 2016,
+        "genre": "Pop",
+        "art": "arts/19.jpg",
+        "cover": "vinylarts/19.png",
+        "url": "songs/19.mp3",
+        "lyric": "lyrics/19.json"
+    },
+    {
+        "title": "Attention",
+        "artist": "Charlie Puth",
+        "album": "Voicenotes",
+        "year": 2018,
+        "genre": "Pop, Pop Rock",
+        "art": "arts/20.jpg",
+        "cover": "vinylarts/20.png",
+        "url": "songs/20.mp3",
+        "lyric": "lyrics/20.json"
     }
 ]
