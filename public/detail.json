@@ -218,5 +218,60 @@
         "cover": "vinylarts/20.png",
         "url": "songs/20.mp3",
         "lyric": "lyrics/20.json"
+    },
+    {
+        "title": "Animals",
+        "artist": "Maroon 5",
+        "album": "V",
+        "year": 2014,
+        "genre": "Rock",
+        "art": "arts/21.jpg",
+        "cover": "vinylarts/21.png",
+        "url": "songs/21.mp3",
+        "lyric": "lyrics/21.json"
+    },
+    {
+        "title": "Maps",
+        "artist": "Maroon 5",
+        "album": "V",
+        "year": 2014,
+        "genre": "Pop Rock, Dance-pop",
+        "art": "arts/22.jpg",
+        "cover": "vinylarts/22.png",
+        "url": "songs/22.mp3",
+        "lyric": "lyrics/22.json"
+    },
+    {
+        "title": "MELODY",
+        "artist": "Ash Island",
+        "album": "ISLAND",
+        "year": 2021,
+        "genre": "Rap, Hip-Hop",
+        "art": "arts/23.jpg",
+        "cover": "vinylarts/23.png",
+        "url": "songs/23.mp3",
+        "lyric": "lyrics/23.json"
+    },
+    {
+        "title": "Dusk Till Dawn",
+        "artist": "ZAYN ft. Sia",
+        "album": "Icarus Falls",
+        "year": 2018,
+        "genre": "Dance-pop, Pop",
+        "art": "arts/24.jpg",
+        "cover": "vinylarts/24.png",
+        "url": "songs/24.mp3",
+        "lyric": "lyrics/24.json"
+    },
+    {
+        "title": "Pretender",
+        "artist": "Official HIGE DANdism",
+        "album": "Traveler",
+        "year": 2019,
+        "genre": "Pop, J-Pop",
+        "art": "arts/25.jpg",
+        "cover": "vinylarts/25.png",
+        "url": "songs/25.mp3",
+        "lyric": "lyrics/25.json"
     }
 ]
