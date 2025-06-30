@@ -4,7 +4,7 @@
   left: 50%;
   transform: translateX(-50%);
   border-radius: 35px;
-  background-color: #ffffff7a;
+  background-color: #ffffff45;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
@@ -268,13 +268,13 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: #666;
+  color: #141414;
   transition: all 0.2s;
 }
 
 .tab-btn.active {
   background-color: white;
-  color: #333;
+  color: #141414;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -348,7 +348,7 @@
   margin: 0 0 16px 0;
   padding-left: 16px;
   font-size: 18px;
-  color: #585858;
+  color: #515151;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -470,7 +470,7 @@
 
 .lyrics-text::-webkit-scrollbar-track,
 .next-up-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent;
   border-radius: 2px;
 }
 

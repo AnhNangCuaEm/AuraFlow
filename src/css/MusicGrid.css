@@ -4,7 +4,7 @@
 }
 
 .music-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 12px;
   padding: 16px;
   transition: all 0.3s ease;
@@ -98,7 +98,7 @@
 
 .song-artist {
   font-size: 12px;
-  color: #6b7280;
+  color: #565960;
   margin-bottom: 2px;
   display: -webkit-box;
   line-clamp: 1;
@@ -108,7 +108,7 @@
 
 .song-album {
   font-size: 11px;
-  color: #9ca3af;
+  color: #565960;
   display: -webkit-box;
   line-clamp: 1;
   -webkit-box-orient: vertical;
