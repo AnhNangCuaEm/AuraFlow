@@ -11,7 +11,7 @@ import '../css/MusicGrid.css';
 
 export default function MusicGrid() {
     const [songs, setSongs] = useState<Song[]>([]);
-    const { playSong, togglePlayPause, playerState } = useMusic();
+    const { playSong, togglePlayPause, playerState, loadPlaylist } = useMusic();
     const vinylRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
     const rotationRefs = useRef<{ [key: string]: number }>({});
     const animationRefs = useRef<{ [key: string]: number | null }>({});
@@ -29,7 +29,8 @@ export default function MusicGrid() {
     useEffect(() => {
         const loadSongs = async () => {
             try {
-                const playlist = await musicService.loadPlaylist();
+                // Load playlist into context first
+                const playlist = await loadPlaylist();
                 const shuffledPlaylist = shuffleArray(playlist);
                 setSongs(shuffledPlaylist);
             } catch (error) {
@@ -38,7 +39,7 @@ export default function MusicGrid() {
         };
 
         loadSongs();
-    }, []);
+    }, [loadPlaylist]);
 
     // Effect to control vinyl animation
     useEffect(() => {
@@ -87,7 +88,11 @@ export default function MusicGrid() {
             if (playerState.currentSong?.title === song.title && playerState.isPlaying) {
                 await togglePlayPause();
             } else {
-                await playSong(song, index);
+                // Find the actual index in the context playlist (not shuffled)
+                const actualIndex = playerState.playlist.findIndex(s => s.url === song.url);
+                
+                // Always create new queue when playing from main page (vinyl click)
+                await playSong(song, actualIndex >= 0 ? actualIndex : index, true);
             }
         } catch (error) {
             console.error('Error playing song:', error);

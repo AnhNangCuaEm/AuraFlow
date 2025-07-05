@@ -7,13 +7,16 @@ import { PlayerState, Song } from '@/types/music';
 interface MusicContextType {
     playerState: PlayerState;
     loadPlaylist: () => Promise<Song[]>;
-    playSong: (song: Song, index: number) => Promise<void>;
+    playSong: (song: Song, index: number, shouldCreateQueue?: boolean) => Promise<void>;
     togglePlayPause: () => Promise<void>;
     next: () => void;
     previous: () => void;
     seekTo: (time: number) => void;
     setVolume: (volume: number) => void;
     setLoop: (isLooping: boolean) => void;
+    setShuffle: (isShuffling: boolean) => void;
+    reorderQueue: (startIndex: number, endIndex: number) => void;
+    removeFromQueue: (index: number) => void;
 }
 
 const MusicContext = createContext<MusicContextType | undefined>(undefined);

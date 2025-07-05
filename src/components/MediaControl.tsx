@@ -18,13 +18,14 @@ import {
     faShuffle,
     faVolumeHigh
 } from '@fortawesome/free-solid-svg-icons'
+import { DndContext, closestCenter, DragEndEvent } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import QueueItem from './QueueItem';
 import "../css/MediaControl.css";
 
 export default function MediaControl() {
     const [expanded, setExpanded] = useState(false);
     const [activeTab, setActiveTab] = useState<'lyrics' | 'nextup'>('lyrics');
-    const [isTransitioning, setIsTransitioning] = useState(false);
-    const [isShuffling, setIsShuffling] = useState(false);
     const [showVolumeSlider, setShowVolumeSlider] = useState(false);
 
     const {
@@ -35,6 +36,9 @@ export default function MediaControl() {
         seekTo,
         setVolume,
         setLoop,
+        setShuffle,
+        reorderQueue,
+        removeFromQueue,
     } = useMusic();
 
     // Function to get lyric line class based on current time
@@ -68,6 +72,19 @@ export default function MediaControl() {
         seekTo(timeInSeconds);
     };
 
+    // Auto scroll to current song in queue
+    useEffect(() => {
+        if (expanded && activeTab === 'nextup' && playerState.currentSong) {
+            const currentElement = document.querySelector('.queue-item.current-song');
+            if (currentElement) {
+                currentElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }
+    }, [playerState.currentSong, expanded, activeTab]);
+
     // Auto scroll to current lyric
     useEffect(() => {
         if (expanded && activeTab === 'lyrics') {
@@ -84,15 +101,6 @@ export default function MediaControl() {
     // Debug audio player state
     useEffect(() => {
     }, [playerState.volume]);
-
-    // Track when song changes from null to a song
-    useEffect(() => {
-        if (playerState.currentSong && !isTransitioning) {
-            setIsTransitioning(true);
-            // Reset transition state after animation completes
-            setTimeout(() => setIsTransitioning(false), 800);
-        }
-    }, [playerState.currentSong]);
 
     // Close volume slider when clicking outside
     useEffect(() => {
@@ -130,9 +138,8 @@ export default function MediaControl() {
     };
 
     const toggleShuffle = () => {
-        setIsShuffling(!isShuffling);
-        // Here you would implement the actual shuffle functionality
-        console.log('Shuffle toggled:', !isShuffling);
+        const newShuffleState = !playerState.isShuffling;
+        setShuffle(newShuffleState);
     };
 
     const toggleVolumeSlider = (e: React.MouseEvent) => {
@@ -150,7 +157,19 @@ export default function MediaControl() {
         ? musicService.getArtUrl(playerState.currentSong.art)
         : "/default-art.jpg";
 
-    const nextUpSongs: any[] = [];  // Remove queue for now
+    // Handle drag end for reordering queue
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event;
+
+        if (active.id !== over?.id) {
+            const oldIndex = playerState.queue.findIndex((_, index) => `queue-item-${index}` === active.id);
+            const newIndex = playerState.queue.findIndex((_, index) => `queue-item-${index}` === over?.id);
+
+            if (oldIndex !== -1 && newIndex !== -1) {
+                reorderQueue(oldIndex, newIndex);
+            }
+        }
+    };
 
     if (!playerState.currentSong) {
         return (
@@ -170,7 +189,7 @@ export default function MediaControl() {
     }
 
     return (
-        <div className={`media-control ${expanded ? "expanded" : ""} ${isTransitioning ? "transitioning" : ""}`}>
+        <div className={`media-control ${expanded ? "expanded" : ""}`}>
             {expanded && (
                 <div className="expanded-content">
                     <div className="large-art">
@@ -226,28 +245,31 @@ export default function MediaControl() {
                             <div className="next-up-container">
                                 <h3>Next Up</h3>
                                 <div className="next-up-list">
-                                    {nextUpSongs.length > 0 ? (
-                                        nextUpSongs.map((song, index) => (
-                                            <div key={song.id || index} className="next-up-item">
-                                                <div className="next-up-art">
-                                                    <Image
-                                                        src={musicService.getArtUrl(song.art)}
-                                                        alt={song.title}
-                                                        width={40}
-                                                        height={40}
+                                    <DndContext 
+                                        collisionDetection={closestCenter}
+                                        onDragEnd={handleDragEnd}
+                                    >
+                                        <SortableContext 
+                                            items={playerState.queue.map((_, index) => `queue-item-${index}`)}
+                                            strategy={verticalListSortingStrategy}
+                                        >
+                                            {playerState.queue.length > 0 ? (
+                                                playerState.queue.map((song, index) => (
+                                                    <QueueItem
+                                                        key={`queue-item-${index}`}
+                                                        song={song}
+                                                        index={index}
+                                                        onRemove={removeFromQueue}
+                                                        isCurrentSong={playerState.currentSong?.url === song.url}
                                                     />
-                                                </div>
-                                                <div className="next-up-info">
-                                                    <p className="next-up-title">{song.title}</p>
-                                                    <p className="next-up-artist">{song.artist}</p>
-                                                </div>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p style={{ color: '#666', fontStyle: 'italic' }}>
-                                            No songs in queue
-                                        </p>
-                                    )}
+                                                ))
+                                            ) : (
+                                                <p style={{ color: '#666', fontStyle: 'italic' }}>
+                                                    No songs in queue
+                                                </p>
+                                            )}
+                                        </SortableContext>
+                                    </DndContext>
                                 </div>
                             </div>
                         )}
@@ -309,7 +331,7 @@ export default function MediaControl() {
                     {/* Shuffle button - only visible when expanded */}
                     {expanded && (
                         <button
-                            className={`control-btn shuffle-btn ${isShuffling ? 'active' : ''}`}
+                            className={`control-btn shuffle-btn ${playerState.isShuffling ? 'active' : ''}`}
                             onClick={toggleShuffle}
                             title="Shuffle"
                         >

@@ -23,8 +23,11 @@ export interface PlayerState {
     volume: number;
     currentIndex: number;
     playlist: Song[];
+    queue: Song[];
+    originalPlaylist: Song[];
     lyrics: LyricLine[];
     isLoading: boolean;
     showVolumeSlider: boolean;
     isLooping: boolean;
+    isShuffling: boolean;
 }
