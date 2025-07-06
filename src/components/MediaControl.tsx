@@ -98,10 +98,6 @@ export default function MediaControl() {
         }
     }, [playerState.currentTime, expanded, activeTab]);
 
-    // Debug audio player state
-    useEffect(() => {
-    }, [playerState.volume]);
-
     // Close volume slider when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
