@@ -39,6 +39,24 @@ export const useAudioPlayer = () => {
         return shuffledSongs;
     }, []);
 
+    // Update Media Session metadata
+    const updateMediaSession = useCallback((song: Song) => {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: song.title,
+                artist: song.artist,
+                album: song.album,
+                artwork: [
+                    {
+                        src: musicService.getArtUrl(song.art),
+                        sizes: '512x512',
+                        type: 'image/jpeg'
+                    }
+                ]
+            });
+        }
+    }, []);
+
     const playSong = useCallback(async (song: Song, index: number, shouldCreateQueue: boolean = true) => {
         if (!audioRef.current) return;
 
@@ -109,6 +127,9 @@ export const useAudioPlayer = () => {
                 isPlaying: true,
                 isLoading: false,
             }));
+
+            // Update Media Session metadata for the new song
+            updateMediaSession(song);
         } catch (error) {
             console.error('Error playing audio:', error);
             setPlayerState(prev => ({
@@ -117,7 +138,7 @@ export const useAudioPlayer = () => {
                 isLoading: false,
             }));
         }
-    }, []);
+    }, [updateMediaSession]);
 
     const next = useCallback(() => {
         setPlayerState(prev => {
@@ -366,6 +387,90 @@ export const useAudioPlayer = () => {
         }
         return null;
     }, [playerState]);
+
+    // Set up Media Session action handlers
+    const setupMediaSessionHandlers = useCallback(() => {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.setActionHandler('play', () => {
+                togglePlayPause();
+            });
+
+            navigator.mediaSession.setActionHandler('pause', () => {
+                togglePlayPause();
+            });
+
+            navigator.mediaSession.setActionHandler('previoustrack', () => {
+                previous();
+            });
+
+            navigator.mediaSession.setActionHandler('nexttrack', () => {
+                next();
+            });
+
+            navigator.mediaSession.setActionHandler('seekto', (details) => {
+                if (details.seekTime) {
+                    seekTo(details.seekTime);
+                }
+            });
+
+            navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+                const skipTime = details.seekOffset || 10;
+                seekTo(Math.max(0, playerState.currentTime - skipTime));
+            });
+
+            navigator.mediaSession.setActionHandler('seekforward', (details) => {
+                const skipTime = details.seekOffset || 10;
+                seekTo(Math.min(playerState.duration, playerState.currentTime + skipTime));
+            });
+        }
+    }, [togglePlayPause, previous, next, seekTo, playerState.currentTime, playerState.duration]);
+
+    // Update Media Session playback state
+    const updateMediaSessionPlaybackState = useCallback((isPlaying: boolean) => {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
+        }
+    }, []);
+
+    // Update Media Session position state
+    const updateMediaSessionPositionState = useCallback(() => {
+        if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+            if (navigator.mediaSession && typeof navigator.mediaSession.setPositionState === 'function') {
+                navigator.mediaSession.setPositionState({
+                    duration: playerState.duration,
+                    playbackRate: 1.0,
+                    position: playerState.currentTime
+                });
+            }
+        }
+    }, [playerState.duration, playerState.currentTime]);
+
+    // Initialize Media Session handlers
+    useEffect(() => {
+        setupMediaSessionHandlers();
+    }, [setupMediaSessionHandlers]);
+
+    // Update Media Session when song changes
+    useEffect(() => {
+        if (playerState.currentSong) {
+            updateMediaSession(playerState.currentSong);
+        }
+    }, [playerState.currentSong, updateMediaSession]);
+
+    // Update Media Session playback state when playing state changes
+    useEffect(() => {
+        updateMediaSessionPlaybackState(playerState.isPlaying);
+    }, [playerState.isPlaying, updateMediaSessionPlaybackState]);
+
+    // Update Media Session position state periodically
+    useEffect(() => {
+        if (playerState.isPlaying && playerState.duration > 0) {
+            const interval = setInterval(() => {
+                updateMediaSessionPositionState();
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [playerState.isPlaying, playerState.duration, updateMediaSessionPositionState]);
 
     return {
         playerState,
