@@ -59,7 +59,7 @@ export default function QueueItem({ song, index, onRemove, isCurrentSong = false
                 <button
                     className="queue-remove-btn"
                     onClick={() => onRemove(index)}
-                    title="Remove from queue"
+                    title="キューから削除"
                 >
                     <FontAwesomeIcon icon={faXmark} />
                 </button>
@@ -68,7 +68,7 @@ export default function QueueItem({ song, index, onRemove, isCurrentSong = false
                     className="queue-drag-handle"
                     {...attributes}
                     {...listeners}
-                    title="Drag to reorder"
+                    title="ドラッグして順番を変更"
                 >
                     <FontAwesomeIcon icon={faGripVertical} />
                 </div>

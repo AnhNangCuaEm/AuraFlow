@@ -9,4 +9,5 @@
 - Try liquid glass design
 - Clean up unneed code line
 - Add more songs
+- Make app still work even switched other tab
 - Optimize for OS media control
