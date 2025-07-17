@@ -5,8 +5,8 @@
 - Make navbar work
 - Add loading screen
 - Add search feature
-- shuffle logic
 - Try liquid glass design
 - Clean up unneed code line
 - Add more songs
 - Make app still work even switched other tab
+- Change all audio codec to m4a instead of mp3

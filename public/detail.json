@@ -273,5 +273,27 @@
         "cover": "vinylarts/25.png",
         "url": "songs/25.mp3",
         "lyric": "lyrics/25.json"
+    },
+    {
+        "title": "もう少しだけ",
+        "artist": "YOASOBI",
+        "album": "The Book 2",
+        "year": 2021,
+        "genre": "J-Pop",
+        "art": "arts/26.jpg",
+        "cover": "vinylarts/26.png",
+        "url": "songs/26.m4a",
+        "lyric": "lyrics/26.json"
+    },
+    {
+        "title": "Calm Down",
+        "artist": "Rema & Selena Gomez",
+        "album": "Rave & Roses Ultra",
+        "year": 2023,
+        "genre": "Afrobeats",
+        "art": "arts/27.jpg",
+        "cover": "vinylarts/27.png",
+        "url": "songs/27.m4a",
+        "lyric": "lyrics/27.json"
     }
 ]
