@@ -7,7 +7,7 @@
         "genre": "Pop",
         "art": "arts/1.jpg",
         "cover": "vinylarts/1.png",
-        "url": "songs/1.mp3",
+        "url": "songs/1.m4a",
         "lyric": "lyrics/1.json"
     },
     {
@@ -29,7 +29,7 @@
         "genre": "Pop",
         "art": "arts/3.jpg",
         "cover": "vinylarts/3.png",
-        "url": "songs/3.mp3",
+        "url": "songs/3.m4a",
         "lyric": "lyrics/3.json"
     },
     {
@@ -40,7 +40,7 @@
         "genre": "R&B,Pop",
         "art": "arts/4.jpg",
         "cover": "vinylarts/4.png",
-        "url": "songs/4.mp3",
+        "url": "songs/4.m4a",
         "lyric": "lyrics/4.json"
     },
     {
@@ -51,7 +51,7 @@
         "genre": "Pop",
         "art": "arts/5.jpg",
         "cover": "vinylarts/5.png",
-        "url": "songs/5.mp3",
+        "url": "songs/5.m4a",
         "lyric": "lyrics/5.json"
     },
     {
@@ -62,7 +62,7 @@
         "genre": "Indie",
         "art": "arts/6.jpg",
         "cover": "vinylarts/6.png",
-        "url": "songs/6.mp3",
+        "url": "songs/6.m4a",
         "lyric": "lyrics/6.json"
     },
     {
@@ -73,7 +73,7 @@
         "genre": "Disco, Pop",
         "art": "arts/7.jpg",
         "cover": "vinylarts/7.png",
-        "url": "songs/7.mp3",
+        "url": "songs/7.m4a",
         "lyric": "lyrics/7.json"
     },
     {
@@ -84,7 +84,7 @@
         "genre": "Pop, Soft Rock",
         "art": "arts/8.jpg",
         "cover": "vinylarts/8.png",
-        "url": "songs/8.mp3",
+        "url": "songs/8.m4a",
         "lyric": "lyrics/8.json"
     },
     {
@@ -95,7 +95,7 @@
         "genre": "Pop Rock",
         "art": "arts/9.jpg",
         "cover": "vinylarts/9.png",
-        "url": "songs/9.mp3",
+        "url": "songs/9.m4a",
         "lyric": "lyrics/9.json"
     },
     {
@@ -106,29 +106,29 @@
         "genre": "Dance pop, EDM",
         "art": "arts/10.jpg",
         "cover": "vinylarts/10.png",
-        "url": "songs/10.mp3",
+        "url": "songs/10.m4a",
         "lyric": "lyrics/10.json"
     },
     {
-        "title": "Way back home",
+        "title": "Way Back Home [Sam Feldt Edit]",
         "artist": "Shaun",
         "album": "Take",
         "year": 2018,
         "genre": "Pop, EDM",
         "art": "arts/11.jpg",
         "cover": "vinylarts/11.png",
-        "url": "songs/11.mp3",
+        "url": "songs/11.m4a",
         "lyric": "lyrics/11.json"
     },
     {
-        "title": "Tabun",
+        "title": "たぶん",
         "artist": "YOASOBI",
         "album": "The Book",
         "year": 2020,
         "genre": "J-Pop",
         "art": "arts/12.jpg",
         "cover": "vinylarts/12.png",
-        "url": "songs/12.mp3",
+        "url": "songs/12.m4a",
         "lyric": "lyrics/12.json"
     },
     {
@@ -139,18 +139,18 @@
         "genre": "J-Pop",
         "art": "arts/13.jpg",
         "cover": "vinylarts/13.png",
-        "url": "songs/13.mp3",
+        "url": "songs/13.m4a",
         "lyric": "lyrics/13.json"
     },
     {
-        "title": "Idol",
+        "title": "アイドル",
         "artist": "YOASOBI",
         "album": "The Book 3",
         "year": 2023,
         "genre": "J-Pop",
         "art": "arts/14.jpg",
         "cover": "vinylarts/14.png",
-        "url": "songs/14.mp3",
+        "url": "songs/14.m4a",
         "lyric": "lyrics/14.json"
     },
     {
@@ -161,7 +161,7 @@
         "genre": "J-Pop",
         "art": "arts/15.jpg",
         "cover": "vinylarts/15.png",
-        "url": "songs/15.mp3",
+        "url": "songs/15.m4a",
         "lyric": "lyrics/15.json"
     },
     {
@@ -172,7 +172,7 @@
         "genre": "J-Pop",
         "art": "arts/16.jpg",
         "cover": "vinylarts/16.png",
-        "url": "songs/16.mp3",
+        "url": "songs/16.m4a",
         "lyric": "lyrics/16.json"
     },
     {
@@ -183,7 +183,7 @@
         "genre": "J-Pop",
         "art": "arts/17.jpg",
         "cover": "vinylarts/17.png",
-        "url": "songs/17.mp3",
+        "url": "songs/17.m4a",
         "lyric": "lyrics/17.json"
     },
     {
@@ -194,7 +194,7 @@
         "genre": "Pop",
         "art": "arts/18.jpg",
         "cover": "vinylarts/18.png",
-        "url": "songs/18.mp3",
+        "url": "songs/18.m4a",
         "lyric": "lyrics/18.json"
     },
     {
@@ -205,7 +205,7 @@
         "genre": "Pop",
         "art": "arts/19.jpg",
         "cover": "vinylarts/19.png",
-        "url": "songs/19.mp3",
+        "url": "songs/19.m4a",
         "lyric": "lyrics/19.json"
     },
     {
@@ -216,7 +216,7 @@
         "genre": "Pop, Pop Rock",
         "art": "arts/20.jpg",
         "cover": "vinylarts/20.png",
-        "url": "songs/20.mp3",
+        "url": "songs/20.m4a",
         "lyric": "lyrics/20.json"
     },
     {
@@ -227,7 +227,7 @@
         "genre": "Rock",
         "art": "arts/21.jpg",
         "cover": "vinylarts/21.png",
-        "url": "songs/21.mp3",
+        "url": "songs/21.m4a",
         "lyric": "lyrics/21.json"
     },
     {
@@ -238,7 +238,7 @@
         "genre": "Pop Rock, Dance-pop",
         "art": "arts/22.jpg",
         "cover": "vinylarts/22.png",
-        "url": "songs/22.mp3",
+        "url": "songs/22.m4a",
         "lyric": "lyrics/22.json"
     },
     {
@@ -249,7 +249,7 @@
         "genre": "Rap, Hip-Hop",
         "art": "arts/23.jpg",
         "cover": "vinylarts/23.png",
-        "url": "songs/23.mp3",
+        "url": "songs/23.m4a",
         "lyric": "lyrics/23.json"
     },
     {
@@ -260,7 +260,7 @@
         "genre": "Dance-pop, Pop",
         "art": "arts/24.jpg",
         "cover": "vinylarts/24.png",
-        "url": "songs/24.mp3",
+        "url": "songs/24.m4a",
         "lyric": "lyrics/24.json"
     },
     {
@@ -271,7 +271,7 @@
         "genre": "Pop, J-Pop",
         "art": "arts/25.jpg",
         "cover": "vinylarts/25.png",
-        "url": "songs/25.mp3",
+        "url": "songs/25.m4a",
         "lyric": "lyrics/25.json"
     },
     {
