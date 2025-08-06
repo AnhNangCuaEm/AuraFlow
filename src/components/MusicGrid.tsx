@@ -7,6 +7,7 @@ import { Song } from '@/types/music';
 import { musicService } from '@/services/MusicService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import '../css/MusicGrid.css';
 
 export default function MusicGrid() {
@@ -46,23 +47,23 @@ export default function MusicGrid() {
         if (playerState.currentSong) {
             const songKey = playerState.currentSong.title;
             const vinylElement = vinylRefs.current[songKey];
-            
+
             if (vinylElement) {
                 if (playerState.isPlaying) {
                     //Start animation from last position
                     const startRotation = rotationRefs.current[songKey] || 0;
                     const startTime = Date.now();
-                    
+
                     const animate = () => {
                         const elapsed = Date.now() - startTime;
                         const rotation = startRotation + (elapsed / 10000) * 360;
-                        
+
                         rotationRefs.current[songKey] = rotation % 360;
                         vinylElement.style.transform = `rotate(${rotation}deg)`;
-                        
+
                         animationRefs.current[songKey] = requestAnimationFrame(animate);
                     };
-                    
+
                     animationRefs.current[songKey] = requestAnimationFrame(animate);
                 } else {
                     // Stop animation and keep the last rotation
@@ -74,7 +75,7 @@ export default function MusicGrid() {
             }
         }
 
-        
+
         return () => {
             Object.values(animationRefs.current).forEach(animId => {
                 if (animId) cancelAnimationFrame(animId);
@@ -90,7 +91,7 @@ export default function MusicGrid() {
             } else {
                 // Find the actual index in the context playlist (not shuffled)
                 const actualIndex = playerState.playlist.findIndex(s => s.url === song.url);
-                
+
                 // Always create new queue when playing from main page (vinyl click)
                 await playSong(song, actualIndex >= 0 ? actualIndex : index, true);
             }
@@ -101,15 +102,31 @@ export default function MusicGrid() {
 
     return (
         <div className="music-grid-container">
-            <h1 className="mb-4 md:mb-6 lg:mb-8">
+            <h1 className="flex justify-between mb-4 md:mb-6 lg:mb-8">
                 <Image
                     priority={true}
                     src="/logo.png"
-                    alt="Music Machine Logo"
+                    alt="AuraFlow Logo"
                     width={200}
                     height={60}
                     className="logo w-36 h-auto md:w-48 lg:w-52"
                 />
+                {/* github link and portfolio link */}
+                <div className="flex items-center space-x-4">
+                    <a href="https://github.com/AnhNangCuaEm/AuraFlow" target="_blank" rel="noopener noreferrer">
+                        <FontAwesomeIcon icon={faGithub} size='2xl' color='white' title='GitHub Logo'/>
+                    </a>
+                    <a href="https://anhnangcuaem.com" target="_blank" rel="noopener noreferrer">
+                        <Image
+                            src="/portfolio.png"
+                            alt="Portfolio Logo"
+                            width={32} 
+                            height={32}
+                            title='Portfolio Logo'
+                            className="portfolio-logo w-8 h-8 md:w-8 md:h-8 lg:w-8 lg:h-8"
+                        />
+                    </a>
+                </div>
             </h1>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -119,10 +136,10 @@ export default function MusicGrid() {
                         className={`music-card ${playerState.currentSong?.title === song.title ? 'active' : ''}`}
                         onClick={() => handleSongClick(song, index)}
                     >
-                        <div 
+                        <div
                             className="vinyl-container"
                         >
-                            <div 
+                            <div
                                 className="vinyl-image"
                                 ref={el => { vinylRefs.current[song.title] = el; }}
                             >
@@ -166,7 +183,7 @@ export default function MusicGrid() {
 
             {songs.length === 0 && (
                 <div className="text-center py-12">
-                    <div className="text-gray-900 text-lg">Loading music collection...</div>
+                    <div className="text-gray-900 text-lg">曲を読み込んでいます...</div>
                 </div>
             )}
         </div>
