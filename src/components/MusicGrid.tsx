@@ -12,6 +12,7 @@ import '../css/MusicGrid.css';
 
 export default function MusicGrid() {
     const [songs, setSongs] = useState<Song[]>([]);
+    const [isClient, setIsClient] = useState(false);
     const { playSong, togglePlayPause, playerState, loadPlaylist } = useMusic();
     const vinylRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
     const rotationRefs = useRef<{ [key: string]: number }>({});
@@ -100,6 +101,10 @@ export default function MusicGrid() {
         }
     };
 
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
     return (
         <div className="music-grid-container">
             <h1 className="flex justify-between mb-4 md:mb-6 lg:mb-8">
@@ -113,17 +118,22 @@ export default function MusicGrid() {
                 />
                 {/* github link and portfolio link */}
                 <div className="flex items-center space-x-4">
-                    <a href="https://github.com/AnhNangCuaEm/AuraFlow" target="_blank" rel="noopener noreferrer">
-                        <FontAwesomeIcon icon={faGithub} size='2xl' color='white' title='GitHub Logo'/>
+                    <a href="https://github.com/AnhNangCuaEm/AuraFlow" target="_blank" rel="noopener noreferrer"
+                        className="transition-transform duration-300 hover:scale-110 hover:rotate-3">
+                        {isClient && (
+                            <FontAwesomeIcon icon={faGithub} size='2xl' color='white' title='GitHub'
+                                className="transition-colors duration-300 hover:text-gray-300" />
+                        )}
                     </a>
-                    <a href="https://anhnangcuaem.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://anhnangcuaem.com" target="_blank" rel="noopener noreferrer"
+                        className="transition-transform duration-300 hover:scale-110 hover:-rotate-3">
                         <Image
                             src="/portfolio.png"
                             alt="Portfolio Logo"
-                            width={32} 
+                            width={32}
                             height={32}
-                            title='Portfolio Logo'
-                            className="portfolio-logo w-8 h-8 md:w-8 md:h-8 lg:w-8 lg:h-8"
+                            title='Portfolio'
+                            className="portfolio-logo w-8 h-8 md:w-8 md:h-8 lg:w-8 lg:h-8 transition-all duration-300 hover:brightness-110 hover:drop-shadow-lg"
                         />
                     </a>
                 </div>

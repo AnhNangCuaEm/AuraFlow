@@ -104,10 +104,20 @@
 }
 
 .nav-expand.expanded {
-  width: 465px;
+  width: 392px;
 }
 
 .nav-expand.expanded .nav-items {
   opacity: 1;
   pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .nav-expand .nav-list {
+    gap: 0;
+  }
+
+  .nav-expand.expanded {
+    width: 355px;
+  }
 }

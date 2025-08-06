@@ -56,9 +56,8 @@ export default function NavExpand() {
             <div className="nav-items">
                 <ul className="nav-list">
                     <li>Pop</li>
-                    <li>Ballad</li>
                     <li>J-Pop</li>
-                    <li>Rock</li>
+                    <li>Other</li>
                     <div className="search-input">
                         <input
                             type="text"

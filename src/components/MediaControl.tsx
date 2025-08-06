@@ -47,22 +47,22 @@ export default function MediaControl() {
         const lineTimeInSeconds = line.time / 1000; // Convert milliseconds to seconds
         const nextLine = playerState.lyrics[index + 1];
         const nextLineTimeInSeconds = nextLine ? nextLine.time / 1000 : Infinity;
-        
+
         // Current line
         if (currentTime >= lineTimeInSeconds && currentTime < nextLineTimeInSeconds) {
             return 'current-lyric';
         }
-        
+
         // // Next line (upcoming) - 2 seconds before
         // if (currentTime >= (lineTimeInSeconds - 2) && currentTime < lineTimeInSeconds) {
         //     return 'next-lyric';
         // }
-        
+
         // Passed lines
         if (currentTime > lineTimeInSeconds && currentTime >= nextLineTimeInSeconds) {
             return 'passed-lyric';
         }
-        
+
         return '';
     };
 
@@ -145,7 +145,7 @@ export default function MediaControl() {
 
     const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newVolume = parseInt(e.target.value);
-        
+
         setVolume(newVolume / 100);
     };
 
@@ -241,11 +241,11 @@ export default function MediaControl() {
                             <div className="next-up-container">
                                 <h3>Next Up</h3>
                                 <div className="next-up-list">
-                                    <DndContext 
+                                    <DndContext
                                         collisionDetection={closestCenter}
                                         onDragEnd={handleDragEnd}
                                     >
-                                        <SortableContext 
+                                        <SortableContext
                                             items={playerState.queue.map((_, index) => `queue-item-${index}`)}
                                             strategy={verticalListSortingStrategy}
                                         >
@@ -274,30 +274,31 @@ export default function MediaControl() {
             )}
 
             <div className="media-content">
-                <div className="album-art">
-                    <Image
-                        src={artUrl}
-                        alt="Album Art"
-                        width={64}
-                        height={64}
-                    />
-                </div>
+                <div className="timeline-row">
+                    <div className="album-art">
+                        <Image
+                            src={artUrl}
+                            alt="Album Art"
+                            width={64}
+                            height={64}
+                        />
+                    </div>
 
-                <div className="timeline-container">
-                    <span className="time-display">{formatTime(playerState.currentTime)}</span>
-                    <input
-                        type="range"
-                        min="0"
-                        max={playerState.duration}
-                        value={playerState.currentTime}
-                        onChange={handleSeek}
-                        className="timeline"
-                    />
-                    <span className="time-display">{formatTime(playerState.duration)}</span>
+                    <div className="timeline-container">
+                        <span className="time-display time-start">{formatTime(playerState.currentTime)}</span>
+                        <input
+                            type="range"
+                            min="0"
+                            max={playerState.duration}
+                            value={playerState.currentTime}
+                            onChange={handleSeek}
+                            className="timeline"
+                        />
+                        <span className="time-display time-end">{formatTime(playerState.duration)}</span>
+                    </div>
                 </div>
 
                 <div className="control-buttons">
-
                     <button className="control-btn" onClick={previous}>
                         <FontAwesomeIcon icon={faBackward} />
                     </button>
@@ -312,6 +313,7 @@ export default function MediaControl() {
                     <button className="control-btn" onClick={next}>
                         <FontAwesomeIcon icon={faForward} />
                     </button>
+
                     {/* Loop button - only visible when expanded */}
                     {expanded && (
                         <button

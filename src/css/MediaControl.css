@@ -42,7 +42,7 @@
 .media-content {
   display: flex;
   align-items: center;
-  padding: 12px 20px;
+  padding: 16px;
   gap: 16px;
   min-height: 60px;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -130,12 +130,17 @@
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+.timeline-row {
+  display: flex;
+  gap: 16px;
+}
+
 .timeline-container {
   display: flex;
   align-items: center;
+  text-align: center;
   gap: 12px;
   flex: 1;
-  min-width: 200px;
   opacity: 1;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -768,4 +773,105 @@
 .queue-item {
   position: relative;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (max-width: 768px) {
+  .large-art {
+    display: none;
+  }
+
+  .media-content {
+    gap: 0;
+  }
+
+  .timeline-container {
+    gap: 4px;
+  }
+
+  .timeline-row {
+    gap: 8px;
+  }
+
+  .time-start,
+  .time-end {
+    display: none;
+  }
+
+  .media-control.expanded .time-start,
+  .media-control.expanded .time-end {
+    display: block;
+  }
+
+  .control-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .volume-container {
+    display: none;
+  }
+
+  .control-buttons {
+    gap: 0;
+  }
+
+  /* Stack media content vertically on mobile when expanded */
+  .media-control.expanded .media-content {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* First row: album art + timeline */
+  .media-control.expanded .media-content .timeline-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  /* Second row: control buttons */
+  .media-control.expanded .control-buttons {
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Make buttons slightly smaller on mobile */
+  .media-control.expanded .control-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .media-control.expanded .play-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Expand button positioned separately */
+  .media-control.expanded .expand-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+  }
+
+  /* Adjust expanded content for mobile */
+  .media-control.expanded .expanded-content {
+    padding: 16px;
+    height: auto;
+  }
+
+  .media-control.expanded .content-container {
+    height: auto;
+    transform: none;
+    opacity: 1;
+  }
+
+  /* Adjust lyrics and next-up containers */
+  .lyrics-container,
+  .next-up-container {
+    height: 300px;
+  }
 }
