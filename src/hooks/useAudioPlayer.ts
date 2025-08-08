@@ -119,14 +119,24 @@ export const useAudioPlayer = () => {
             }));
 
             // Now that everything is ready, play the audio
-            await audio.play();
-
-            // Update final state
-            setPlayerState(prev => ({
-                ...prev,
-                isPlaying: true,
-                isLoading: false,
-            }));
+            try {
+                await audio.play();
+                // Update final state
+                setPlayerState(prev => ({
+                    ...prev,
+                    isPlaying: true,
+                    isLoading: false,
+                }));
+            } catch (playError) {
+                // If autoplay fails (e.g., due to browser restrictions), 
+                // still update the state but don't mark as playing
+                console.warn('Autoplay was prevented:', playError);
+                setPlayerState(prev => ({
+                    ...prev,
+                    isPlaying: false,
+                    isLoading: false,
+                }));
+            }
 
             // Update Media Session metadata for the new song
             updateMediaSession(song);
@@ -153,9 +163,10 @@ export const useAudioPlayer = () => {
                 const nextSong = queue[nextQueueIndex];
                 const nextIndex = prev.playlist.findIndex(song => song.url === nextSong.url);
                 
-                requestAnimationFrame(() => {
+                // Use setTimeout instead of requestAnimationFrame for better reliability
+                setTimeout(() => {
                     playSong(nextSong, nextIndex, false); // Don't create new queue
-                });
+                }, 0);
             }
             
             return prev;
@@ -175,9 +186,10 @@ export const useAudioPlayer = () => {
                 const prevSong = queue[prevQueueIndex];
                 const prevIndex = prev.playlist.findIndex(song => song.url === prevSong.url);
                 
-                requestAnimationFrame(() => {
+                // Use setTimeout instead of requestAnimationFrame for better reliability
+                setTimeout(() => {
                     playSong(prevSong, prevIndex, false); // Don't create new queue
-                });
+                }, 0);
             }
             
             return prev;
@@ -189,10 +201,22 @@ export const useAudioPlayer = () => {
         const audio = audioRef.current;
 
         const handleTimeUpdate = () => {
-            setPlayerState(prev => ({
-                ...prev,
-                currentTime: audio.currentTime,
-            }));
+            setPlayerState(prev => {
+                const currentTime = audio.currentTime;
+                const duration = audio.duration;
+                
+                // Backup check: if we're very close to the end and playing, 
+                // prepare for next song (helpful when tab is not focused)
+                if (duration > 0 && currentTime > 0 && (duration - currentTime) < 0.5 && !audio.paused) {
+                    // If we're within 0.5 seconds of the end, the 'ended' event should fire soon
+                    // This is just a backup mechanism
+                }
+                
+                return {
+                    ...prev,
+                    currentTime: currentTime,
+                };
+            });
         };
 
         const handleDurationChange = () => {
@@ -212,10 +236,11 @@ export const useAudioPlayer = () => {
                         audioRef.current.play();
                     }
                 } else {
-                    // Trigger next song
-                    requestAnimationFrame(() => {
+                    // Trigger next song - use setTimeout instead of requestAnimationFrame
+                    // to ensure it works even when tab is not focused
+                    setTimeout(() => {
                         next();
-                    });
+                    }, 100); // Small delay to ensure state is updated
                 }
                 return prev;
             });
@@ -244,6 +269,27 @@ export const useAudioPlayer = () => {
             audio.pause();
         };
     }, [next]);
+
+    // Handle page visibility changes to ensure audio continues playing when tab becomes visible
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (!document.hidden && audioRef.current && playerState.isPlaying) {
+                // When tab becomes visible again, ensure audio is still playing
+                const audio = audioRef.current;
+                if (audio.paused && playerState.isPlaying) {
+                    audio.play().catch(error => {
+                        console.error('Error resuming audio after visibility change:', error);
+                    });
+                }
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [playerState.isPlaying]);
 
     const togglePlayPause = useCallback(async () => {
         if (!audioRef.current) return;

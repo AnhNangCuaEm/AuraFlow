@@ -742,7 +742,7 @@
 
 /* Next Up List Scrolling */
 .next-up-list {
-  overflow: hidden;
+  overflow: auto;
   border-radius: 8px;
   padding-right: 8px;
 }

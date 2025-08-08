@@ -20,6 +20,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { DndContext, closestCenter, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import QueueItem from './QueueItem';
 import "../css/MediaControl.css";
 
@@ -244,6 +245,7 @@ export default function MediaControl() {
                                     <DndContext
                                         collisionDetection={closestCenter}
                                         onDragEnd={handleDragEnd}
+                                        modifiers={[restrictToVerticalAxis]}
                                     >
                                         <SortableContext
                                             items={playerState.queue.map((_, index) => `queue-item-${index}`)}
