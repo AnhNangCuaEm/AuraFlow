@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useMusic } from '@/contexts/MusicContext';
 import { useBackground } from '@/contexts/BackgroundContext';
 import { musicService } from '@/services/MusicService';
@@ -8,19 +8,27 @@ import { musicService } from '@/services/MusicService';
 export const useBackgroundSync = () => {
   const { playerState } = useMusic();
   const { updateColors, resetToDefault } = useBackground();
+  const lastSongUrl = useRef<string | null>(null);
 
   useEffect(() => {
-    if (playerState.currentSong) {
-      // Get the full image URL for color extraction
-      const artUrl = musicService.getArtUrl(playerState.currentSong.art);
+    const currentSongUrl = playerState.currentSong?.url || null;
+    
+    // Only update if song actually changed
+    if (lastSongUrl.current !== currentSongUrl) {
+      lastSongUrl.current = currentSongUrl;
       
-      // Update background colors based on album art
-      updateColors(artUrl).catch((error) => {
-        console.error('Failed to update background colors:', error);
-      });
-    } else {
-      // Reset to default when no song is playing
-      resetToDefault();
+      if (playerState.currentSong) {
+        // Get the full image URL for color extraction
+        const artUrl = musicService.getArtUrl(playerState.currentSong.art);
+        
+        // Update background colors based on album art
+        updateColors(artUrl).catch((error) => {
+          console.error('Failed to update background colors:', error);
+        });
+      } else {
+        // Reset to default when no song is playing
+        resetToDefault();
+      }
     }
-  }, [playerState.currentSong, updateColors, resetToDefault]);
+  }, [playerState.currentSong, updateColors, resetToDefault]); // Include all dependencies
 };

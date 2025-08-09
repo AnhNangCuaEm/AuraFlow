@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import ColorThief from 'colorthief';
 
 interface BackgroundContextType {
@@ -24,12 +24,12 @@ interface BackgroundProviderProps {
 }
 
 export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children }) => {
-  // Default dark violet colors
-  const defaultColors = [
+  // Default dark violet colors - use useMemo to prevent recreation
+  const defaultColors = React.useMemo(() => [
     'rgb(30, 10, 60)',   // Dark violet
     'rgb(15, 5, 40)',    // Darker violet
     'rgb(45, 20, 80)'    // Medium violet
-  ];
+  ], []);
   
   const [colors, setColors] = useState<string[]>(defaultColors);
 
@@ -37,7 +37,7 @@ export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
   };
 
-  const updateColors = async (imageUrl: string) => {
+  const updateColors = useCallback(async (imageUrl: string) => {
     try {
       const colorThief = new ColorThief();
       const img = new Image();
@@ -159,11 +159,11 @@ export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children
       ];
       setColors(fallbackColors);
     }
-  };
+  }, []); // No dependencies needed since this function doesn't use any external variables
 
-  const resetToDefault = () => {
+  const resetToDefault = useCallback(() => {
     setColors(defaultColors);
-  };
+  }, [defaultColors]); // Include defaultColors as dependency
 
   // Update CSS custom properties when colors change
   useEffect(() => {
