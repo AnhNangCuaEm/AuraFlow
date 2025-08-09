@@ -5,8 +5,12 @@ import NavExpand from "@/components/NavMenu";
 import MediaControl from "@/components/MediaControl";
 import MusicGrid from "@/components/MusicGrid";
 import { MusicProvider } from "@/contexts/MusicContext";
+import { BackgroundProvider } from "@/contexts/BackgroundContext";
+import { useBackgroundSync } from "@/hooks/useBackgroundSync";
 
-export default function Home() {
+function AppContent() {
+  useBackgroundSync(); // Sync background with current song
+  
   const interBubbleRef = useRef<HTMLDivElement>(null);
   const curX = useRef(0);
   const curY = useRef(0);
@@ -42,7 +46,7 @@ export default function Home() {
   }, []);
 
   return (
-    <MusicProvider>
+    <>
       <div className="gradient-bg">
         <svg>
           <defs>
@@ -54,8 +58,6 @@ export default function Home() {
           </defs>
         </svg>
         <div className="gradients-container">
-          <div className="g1"></div>
-          <div className="g2"></div>
           <div ref={interBubbleRef} className="interactive"></div>
         </div>
       </div>
@@ -68,6 +70,16 @@ export default function Home() {
         </main>
         <MediaControl />
       </div>
-    </MusicProvider>
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+    <BackgroundProvider>
+      <MusicProvider>
+        <AppContent />
+      </MusicProvider>
+    </BackgroundProvider>
   );
 }
