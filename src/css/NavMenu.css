@@ -28,13 +28,14 @@
 .hamburger {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .hamburger span {
   width: 20px;
-  height: 2px;
+  height: 3px;
+  border-radius: 2px;
   background-color: #000;
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -84,10 +85,6 @@
   background-color: #f0f0f0;
 }
 
-.search-input {
-  flex-shrink: 0;
-}
-
 .search-input .search-bar {
   width: 150px;
   height: 32px;
@@ -95,7 +92,7 @@
   border-radius: 16px;
   padding: 0 12px;
   outline: none;
-  font-size: 13px;
+  font-size: 1rem;
   transition: border-color 0.2s;
 }
 

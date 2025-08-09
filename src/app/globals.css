@@ -11,6 +11,7 @@ body {
 :root {
   --color-bg1: rgb(30, 10, 60);
   --color-bg2: rgb(15, 5, 40);
+  --color-bg3: rgb(45, 20, 80);
   --circle-size: 80%;
 }
 
@@ -21,7 +22,19 @@ body {
   top: 0;
   left: 0;
   overflow: hidden;
-  background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
+  background: 
+    /* Layer 1: Top left corner glow */
+    radial-gradient(ellipse 70% 70% at 20% 20%, var(--color-bg1) 0%, transparent 50%),
+    /* Layer 2: Top right corner glow */
+    radial-gradient(ellipse 70% 70% at 80% 20%, var(--color-bg3) 0%, transparent 50%),
+    /* Layer 3: Bottom center glow */
+    radial-gradient(ellipse 80% 60% at 50% 80%, var(--color-bg2) 0%, transparent 60%),
+    /* Base smooth gradient */
+    linear-gradient(135deg, 
+      var(--color-bg1) 0%, 
+      var(--color-bg2) 50%, 
+      var(--color-bg3) 100%
+    );
   z-index: -1;
   transition: background 0.5s ease-in-out;
 }

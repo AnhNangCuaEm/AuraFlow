@@ -26,8 +26,9 @@ interface BackgroundProviderProps {
 export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children }) => {
   // Default dark violet colors - simple and clean
   const defaultColors = React.useMemo(() => [
-    'rgb(30, 10, 60)',   // Dark violet
-    'rgb(15, 5, 40)',    // Darker violet
+    'rgb(30, 10, 60)',   // Dark violet (corner 1)
+    'rgb(15, 5, 40)',    // Darker violet (center)
+    'rgb(45, 20, 80)'    // Medium violet (corner 2)
   ], []);
   
   const [colors, setColors] = useState<string[]>(defaultColors);
@@ -52,7 +53,7 @@ export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children
             // Simple and fast - just get dominant colors
             setTimeout(() => {
               try {
-                const palette = colorThief.getPalette(img, 2); // Only 2 colors for performance
+                const palette = colorThief.getPalette(img, 3); // Get 3 colors for richer effect
                 
                 // Simple darken function
                 const darkenColor = (rgb: [number, number, number], factor: number = 0.6) => {
@@ -63,12 +64,15 @@ export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children
                   ] as [number, number, number];
                 };
                 
-                const color1 = darkenColor(palette[0] || [30, 10, 60], 0.7);
-                const color2 = darkenColor(palette[1] || [15, 5, 40], 0.5);
+                // Create 3 variations for more interesting gradient
+                const color1 = darkenColor(palette[0] || [30, 10, 60], 0.8); // Darkest for corner
+                const color2 = darkenColor(palette[1] || [15, 5, 40], 0.6);  // Medium for center
+                const color3 = darkenColor(palette[2] || palette[0] || [45, 20, 80], 0.7); // Light for other corner
                 
                 const newColors = [
                   rgbToString(color1),
-                  rgbToString(color2)
+                  rgbToString(color2),
+                  rgbToString(color3)
                 ];
                 
                 setColors(newColors);
@@ -107,9 +111,10 @@ export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children
   // Update CSS custom properties when colors change
   useEffect(() => {
     const root = document.documentElement;
-    if (colors.length >= 2) {
+    if (colors.length >= 3) {
       root.style.setProperty('--color-bg1', colors[0]);
       root.style.setProperty('--color-bg2', colors[1]);
+      root.style.setProperty('--color-bg3', colors[2]);
     }
   }, [colors]);
 
