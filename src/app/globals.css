@@ -7,15 +7,11 @@ body {
   padding: 0;
 }
 
-/* Interactive Background Gradient - Optimized */
+/* Interactive Background Gradient - Simplified for Performance */
 :root {
   --color-bg1: rgb(30, 10, 60);
   --color-bg2: rgb(15, 5, 40);
-  --color1: 30, 10, 60;
-  --color2: 15, 5, 40;
-  --color-interactive: 45, 20, 80;
   --circle-size: 80%;
-  --blending: hard-light;
 }
 
 .gradient-bg {
@@ -30,30 +26,12 @@ body {
   transition: background 0.5s ease-in-out;
 }
 
-.gradient-bg svg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .gradient-bg {
+    transition: background 0.3s ease-in-out; /* Faster transition on mobile */
+  }
 }
 
-.gradients-container {
-  filter: url(#goo) blur(40px);
-  width: 100%;
-  height: 100%;
-  transition: filter 0.5s ease-in-out;
-}
-
-.interactive {
-  position: absolute;
-  background: radial-gradient(circle at center, rgba(var(--color-interactive), 0.8) 0, rgba(var(--color-interactive), 0) 50%) no-repeat;
-  mix-blend-mode: var(--blending);
-  width: 100%;
-  height: 100%;
-  top: -50%;
-  left: -50%;
-  opacity: 0.7;
-  transition: background 0.5s ease-in-out;
-}
+/* Simplified - no more SVG filters or complex animations */
 
