@@ -189,7 +189,7 @@ export default function MediaControl() {
         <div className={`media-control ${expanded ? "expanded" : ""}`}>
             {expanded && (
                 <div className="expanded-content">
-                    <div className="large-art">
+                    <div className={`large-art ${!playerState.isPlaying ? 'small' : ''}`}>
                         <Image
                             priority={false}
                             src={artUrl}

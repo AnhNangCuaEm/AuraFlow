@@ -304,6 +304,13 @@
   overflow: hidden;
   flex-shrink: 0;
   box-shadow: 3px 3px 20px 3px #0003;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+}
+
+.large-art.small {
+  transform: scale(0.8);
+  transform-origin: center center;
+  border-radius: 20px;
 }
 
 .large-art img {
