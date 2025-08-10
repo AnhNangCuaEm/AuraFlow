@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from 'next/image'
 import { useMusic } from "@/contexts/MusicContext";
 import { musicService } from "@/services/MusicService";
@@ -129,14 +129,38 @@ export default function MediaControl() {
         setExpanded(!expanded);
     };
 
-    const toggleLoop = () => {
-        const newLoopState = !playerState.isLooping;
-        setLoop(newLoopState);
-    };
+    const handleSpaceKey = useCallback((event: KeyboardEvent) => {
+        //Check if user is focusing on input, textarea or contenteditable
+        const activeElement = document.activeElement;
+        const isInputFocused = activeElement && (
+            activeElement.tagName === 'INPUT' ||
+            activeElement.tagName === 'TEXTAREA' ||
+            activeElement.getAttribute('contenteditable') === 'true'
+        );
+
+        // Only handle space key when not focused on input
+        if (event.code === "Space" && !isInputFocused) {
+            event.preventDefault();
+            togglePlayPause();
+        }
+    }, [togglePlayPause]);
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleSpaceKey);
+
+        return () => {
+            document.removeEventListener('keydown', handleSpaceKey);
+        };
+    }, [handleSpaceKey]);
 
     const toggleShuffle = () => {
         const newShuffleState = !playerState.isShuffling;
         setShuffle(newShuffleState);
+    };
+
+    const toggleLoop = () => {
+        const newLoopState = !playerState.isLooping;
+        setLoop(newLoopState);
     };
 
     const toggleVolumeSlider = (e: React.MouseEvent) => {

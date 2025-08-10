@@ -28,7 +28,8 @@ export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children
   const defaultColors = React.useMemo(() => [
     'rgb(30, 10, 60)',   // Dark violet (corner 1)
     'rgb(15, 5, 40)',    // Darker violet (center)
-    'rgb(45, 20, 80)'    // Medium violet (corner 2)
+    'rgb(45, 20, 80)',   // Medium violet (corner 2)
+    'rgb(86, 3, 145)'    // Default highlight color
   ], []);
   
   const [colors, setColors] = useState<string[]>(defaultColors);
@@ -69,10 +70,24 @@ export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children
                 const color2 = darkenColor(palette[1] || [15, 5, 40], 0.6);  // Medium for center
                 const color3 = darkenColor(palette[2] || palette[0] || [45, 20, 80], 0.7); // Light for other corner
                 
+                // Get brightness of each color to find the brightest
+                const getBrightness = (rgb: [number, number, number]) => {
+                  return (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
+                };
+                
+                // Find brightest original color
+                const brightestColor = palette.reduce((brightest, current) => {
+                  return getBrightness(current) > getBrightness(brightest) ? current : brightest;
+                }, palette[0]);
+                
+                // Create highlight color (less darkening, more vibrant)
+                const highlightColor = darkenColor(brightestColor, 0.9); // Keep it brighter
+                
                 const newColors = [
                   rgbToString(color1),
                   rgbToString(color2),
-                  rgbToString(color3)
+                  rgbToString(color3),
+                  rgbToString(highlightColor) // Add highlight color as 4th color
                 ];
                 
                 setColors(newColors);
@@ -115,6 +130,11 @@ export const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children
       root.style.setProperty('--color-bg1', colors[0]);
       root.style.setProperty('--color-bg2', colors[1]);
       root.style.setProperty('--color-bg3', colors[2]);
+      
+      // Set highlight color if available
+      if (colors.length >= 4) {
+        root.style.setProperty('--highlight-color', colors[3]);
+      }
     }
   }, [colors]);
 

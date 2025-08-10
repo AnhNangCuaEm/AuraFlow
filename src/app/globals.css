@@ -12,6 +12,7 @@ body {
   --color-bg1: rgb(30, 10, 60);
   --color-bg2: rgb(15, 5, 40);
   --color-bg3: rgb(45, 20, 80);
+  --highlight-color: rgb(86, 3, 145);
   --circle-size: 80%;
 }
 
