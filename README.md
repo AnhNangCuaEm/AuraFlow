@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎵 AuraFlow - Immersive Music Experience
 
-## Getting Started
+AuraFlow is a modern music streaming application built with [Next.js](https://nextjs.org), delivering a colorful and interactive musical experience.
 
-First, run the development server:
+> **⚠️ Educational Project Disclaimer**  
+> This project is developed for educational and learning purposes only. All music files, album artwork, and related content are used under fair use for educational demonstration.
+
+## ✨ Key Features
+
+### 🎨 Dynamic & Interactive Interface
+- **Smart Background**: Automatically changes background colors based on album art's dominant colors
+- **Vinyl Animation**: Realistic vinyl record spinning effects during playback
+- **Material Design**: Modern interface with blur effects and gradients
+
+### 🎧 Complete Music Experience
+- **Media Controls**: Full playback controls (play/pause, next/previous, seek, volume)
+- **Queue Management**: Manage playback queue with drag & drop reordering
+- **Shuffle & Repeat**: Random playback and repeat modes
+- **Lyrics Display**: Time-synchronized lyrics display
+
+### 🔍 Music Discovery
+- **Music Grid**: Display collection in grid layout with vinyl covers
+- **Genre Filtering**: Filter music by genre
+- **Search**: Search songs by title
+- **Multi-format Support**: Support for multiple audio formats
+
+### 🛠️ Technology Stack
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS with custom animations
+- **Audio**: Web Audio API with Media Session API
+- **Interactions**: @dnd-kit for drag & drop functionality
+- **Icons**: FontAwesome
+
+## 🚀 Installation & Setup
 
 ```bash
+# Clone repository
+git clone [repository-url]
+cd AuraFlow
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+public/
+├── arts/          # Album artwork
+├── vinylarts/     # Vinyl cover designs
+├── songs/         # Audio files (.m4a)
+├── lyrics/        # Lyric files (.json)
+└── detail.json    # Music metadata
 
-## Learn More
+src/
+├── components/    # React components
+├── contexts/      # Context providers
+├── hooks/         # Custom hooks
+├── services/      # Business logic
+└── types/         # TypeScript definitions
+```
 
-To learn more about Next.js, take a look at the following resources:
+## ⚖️ Legal Notice
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This application is created for **educational and demonstration purposes only**. Please note:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 🖼️ **Album Artwork**: Any artwork used should be properly licensed or used under fair use guidelines.
+- 📚 **Educational Use**: This project serves as a learning tool for web development technologies and should not be used for commercial distribution of copyrighted content.
+- 🔒 **User Responsibility**: Users are solely responsible for ensuring they have the necessary rights and licenses for any content they use with this application.
 
-## Deploy on Vercel
+**By using this application, you agree to comply with all applicable copyright laws and regulations.**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Built with ❤️ for learning and exploring modern web technologies*

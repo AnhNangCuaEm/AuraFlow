@@ -1,6 +1,5 @@
 'use client';
 
-import NavExpand from "@/components/NavMenu";
 import MediaControl from "@/components/MediaControl";
 import MusicGrid from "@/components/MusicGrid";
 import { MusicProvider } from "@/contexts/MusicContext";
@@ -13,13 +12,11 @@ function AppContent() {
   return (
     <>
       <div className="gradient-bg">
-        {/* Simple static background - no animations for performance */}
       </div>
 
       {/* Main Content */}
       <div className="min-h-screen p-4 relative overflow-hidden">
         <main className="flex flex-col items-center container mx-auto pb-24 relative z-10">
-          <NavExpand />
           <MusicGrid />
         </main>
         <MediaControl />

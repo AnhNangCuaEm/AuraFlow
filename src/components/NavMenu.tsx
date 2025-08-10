@@ -3,9 +3,16 @@
 import React, { useState, useRef } from "react";
 import "../css/NavMenu.css";
 
-export default function NavExpand() {
+interface NavMenuProps {
+    onGenreFilter: (genre: string | null) => void;
+    onSearch: (searchTerm: string) => void;
+    activeGenre: string | null;
+}
+
+export default function NavExpand({ onGenreFilter, onSearch, activeGenre }: NavMenuProps) {
     const [hovered, setHovered] = useState(false);
     const [inputFocused, setInputFocused] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const handleMouseEnter = () => {
@@ -41,6 +48,22 @@ export default function NavExpand() {
         }, 0);
     };
 
+    const handleGenreClick = (genre: string) => {
+        if (activeGenre === genre) {
+            // If clicking the same genre, deselect it
+            onGenreFilter(null);
+        } else {
+            // Select new genre
+            onGenreFilter(genre);
+        }
+    };
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+        onSearch(value);
+    };
+
     return (
         <div
             className={`nav-expand ${hovered ? "expanded" : ""}`}
@@ -49,20 +72,38 @@ export default function NavExpand() {
         >
             <div className="nav-icon">
                 <div className="hamburger">
-                    <span></span>
-                    <span></span>
+                    <span className="dot"></span>
+                    <span className="dot"></span>
+                    <span className="dot"></span>
                 </div>
             </div>
             <div className="nav-items">
                 <ul className="nav-list">
-                    <li>Pop</li>
-                    <li>J-Pop</li>
-                    <li>Other</li>
+                    <li 
+                        className={activeGenre === "Pop" ? "active" : ""}
+                        onClick={() => handleGenreClick("Pop")}
+                    >
+                        Pop
+                    </li>
+                    <li 
+                        className={activeGenre === "J-Pop" ? "active" : ""}
+                        onClick={() => handleGenreClick("J-Pop")}
+                    >
+                        J-Pop
+                    </li>
+                    <li 
+                        className={activeGenre === "Other" ? "active" : ""}
+                        onClick={() => handleGenreClick("Other")}
+                    >
+                        その他
+                    </li>
                     <div className="search-input">
                         <input
                             type="text"
-                            placeholder="Search..."
+                            placeholder="検索..."
                             className="search-bar"
+                            value={searchTerm}
+                            onChange={handleSearchChange}
                             onFocus={handleInputFocus}
                             onBlur={handleInputBlur}
                         />

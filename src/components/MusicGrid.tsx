@@ -8,11 +8,15 @@ import { musicService } from '@/services/MusicService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import NavExpand from './NavMenu';
 import '../css/MusicGrid.css';
 
 export default function MusicGrid() {
     const [songs, setSongs] = useState<Song[]>([]);
+    const [filteredSongs, setFilteredSongs] = useState<Song[]>([]);
     const [isClient, setIsClient] = useState(false);
+    const [activeGenre, setActiveGenre] = useState<string | null>(null);
+    const [searchTerm, setSearchTerm] = useState("");
     const { playSong, togglePlayPause, playerState, loadPlaylist } = useMusic();
     const vinylRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
     const rotationRefs = useRef<{ [key: string]: number }>({});
@@ -35,6 +39,7 @@ export default function MusicGrid() {
                 const playlist = await loadPlaylist();
                 const shuffledPlaylist = shuffleArray(playlist);
                 setSongs(shuffledPlaylist);
+                setFilteredSongs(shuffledPlaylist);
             } catch (error) {
                 console.error('Error loading songs:', error);
             }
@@ -43,46 +48,104 @@ export default function MusicGrid() {
         loadSongs();
     }, [loadPlaylist]);
 
+    // Filter and search effect
+    useEffect(() => {
+        let result = [...songs];
+
+        // Apply genre filter
+        if (activeGenre) {
+            result = result.filter(song => {
+                const genres = song.genre.toLowerCase().split(',').map(g => g.trim());
+                if (activeGenre === "Other") {
+                    // For "Other", exclude Pop and J-Pop songs
+                    return !genres.some(genre => 
+                        genre.includes("pop") || 
+                        genre.includes("j-pop")
+                    );
+                } else {
+                    // For specific genres, check if any genre contains the search term
+                    return genres.some(genre => genre.includes(activeGenre.toLowerCase()));
+                }
+            });
+        }
+
+        // Apply search filter
+        if (searchTerm.trim()) {
+            const search = searchTerm.toLowerCase().trim();
+            result = result.filter(song => 
+                song.title.toLowerCase().includes(search) ||
+                song.artist.toLowerCase().includes(search) ||
+                song.album.toLowerCase().includes(search) ||
+                song.genre.toLowerCase().includes(search) ||
+                song.year.toString().includes(search)
+            );
+        }
+
+        setFilteredSongs(result);
+    }, [songs, activeGenre, searchTerm]);
+
+    const handleGenreFilter = (genre: string | null) => {
+        setActiveGenre(genre);
+    };
+
+    const handleSearch = (search: string) => {
+        setSearchTerm(search);
+    };
+
     // Effect to control vinyl animation
     useEffect(() => {
+        const currentAnimations = animationRefs.current;
+        
         if (playerState.currentSong) {
-            const songKey = playerState.currentSong.title;
-            const vinylElement = vinylRefs.current[songKey];
+            const songKey = playerState.currentSong.url;
+            
+            // Check if current song is in filtered results
+            const isCurrentSongVisible = filteredSongs.some(song => song.url === playerState.currentSong?.url);
+            
+            if (isCurrentSongVisible) {
+                const vinylElement = vinylRefs.current[songKey];
 
-            if (vinylElement) {
-                if (playerState.isPlaying) {
-                    //Start animation from last position
-                    const startRotation = rotationRefs.current[songKey] || 0;
-                    const startTime = Date.now();
+                if (vinylElement) {
+                    if (playerState.isPlaying) {
+                        //Start animation from last position
+                        const startRotation = rotationRefs.current[songKey] || 0;
+                        const startTime = Date.now();
 
-                    const animate = () => {
-                        const elapsed = Date.now() - startTime;
-                        const rotation = startRotation + (elapsed / 10000) * 360;
+                        const animate = () => {
+                            const elapsed = Date.now() - startTime;
+                            const rotation = startRotation + (elapsed / 10000) * 360;
 
-                        rotationRefs.current[songKey] = rotation % 360;
-                        vinylElement.style.transform = `rotate(${rotation}deg)`;
+                            rotationRefs.current[songKey] = rotation % 360;
+                            vinylElement.style.transform = `rotate(${rotation}deg)`;
+
+                            animationRefs.current[songKey] = requestAnimationFrame(animate);
+                        };
 
                         animationRefs.current[songKey] = requestAnimationFrame(animate);
-                    };
-
-                    animationRefs.current[songKey] = requestAnimationFrame(animate);
-                } else {
-                    // Stop animation and keep the last rotation
-                    if (animationRefs.current[songKey]) {
-                        cancelAnimationFrame(animationRefs.current[songKey]!);
-                        animationRefs.current[songKey] = null;
+                    } else {
+                        // Stop animation and keep the last rotation
+                        if (animationRefs.current[songKey]) {
+                            cancelAnimationFrame(animationRefs.current[songKey]!);
+                            animationRefs.current[songKey] = null;
+                        }
                     }
+                }
+            } else {
+                // Current song is not visible, but keep the rotation state
+                // Stop animation but don't reset rotation
+                if (animationRefs.current[songKey]) {
+                    cancelAnimationFrame(animationRefs.current[songKey]!);
+                    animationRefs.current[songKey] = null;
                 }
             }
         }
 
-
         return () => {
-            Object.values(animationRefs.current).forEach(animId => {
+            Object.values(currentAnimations).forEach(animId => {
                 if (animId) cancelAnimationFrame(animId);
             });
         };
-    }, [playerState.isPlaying, playerState.currentSong]);
+    }, [playerState.isPlaying, playerState.currentSong, filteredSongs]);
 
     const handleSongClick = async (song: Song, index: number) => {
         try {
@@ -105,9 +168,52 @@ export default function MusicGrid() {
         setIsClient(true);
     }, []);
 
+    if (!isClient) {
+        return (
+            <div className="music-grid-container">
+                <h1 className="flex justify-between items-center mb-4 md:mb-6 lg:mb-8 w-full">
+                    <Image
+                        priority={true}
+                        src="/logo.png"
+                        alt="AuraFlow Logo"
+                        width={200}
+                        height={60}
+                        className="logo w-36 h-auto md:w-48 lg:w-52"
+                    />
+                    <div className="flex items-center space-x-4 ml-auto">
+                        <a href="https://github.com/AnhNangCuaEm/AuraFlow" target="_blank" rel="noopener noreferrer"
+                            className="transition-transform duration-300 hover:scale-110 hover:rotate-3">
+                            <div className="w-8 h-8 bg-white rounded"></div>
+                        </a>
+                        <a href="https://anhnangcuaem.com" target="_blank" rel="noopener noreferrer"
+                            className="transition-transform duration-300 hover:scale-110 hover:-rotate-3">
+                            <Image
+                                src="/portfolio.png"
+                                alt="Portfolio Logo"
+                                width={32}
+                                height={32}
+                                title='Portfolio'
+                                className="portfolio-logo w-8 h-8 md:w-8 md:h-8 lg:w-8 lg:h-8 transition-all duration-300 hover:brightness-110 hover:drop-shadow-lg"
+                            />
+                        </a>
+                    </div>
+                </h1>
+                <div className="no-results-message">
+                    <div className="text-gray-900 text-lg">曲を読み込んでいます...</div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="music-grid-container">
-            <h1 className="flex justify-between mb-4 md:mb-6 lg:mb-8">
+            <NavExpand 
+                onGenreFilter={handleGenreFilter}
+                onSearch={handleSearch}
+                activeGenre={activeGenre}
+            />
+            
+            <h1 className="flex justify-between items-center mb-4 md:mb-6 lg:mb-8 w-full">
                 <Image
                     priority={true}
                     src="/logo.png"
@@ -117,7 +223,7 @@ export default function MusicGrid() {
                     className="logo w-36 h-auto md:w-48 lg:w-52"
                 />
                 {/* github link and portfolio link */}
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 ml-auto">
                     <a href="https://github.com/AnhNangCuaEm/AuraFlow" target="_blank" rel="noopener noreferrer"
                         className="transition-transform duration-300 hover:scale-110 hover:rotate-3">
                         {isClient && (
@@ -140,10 +246,10 @@ export default function MusicGrid() {
             </h1>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                {songs.map((song, index) => (
+                {filteredSongs.map((song, index) => (
                     <div
-                        key={index}
-                        className={`music-card ${playerState.currentSong?.title === song.title ? 'active' : ''}`}
+                        key={song.url}
+                        className={`music-card song-item ${playerState.currentSong?.title === song.title ? 'active' : ''}`}
                         onClick={() => handleSongClick(song, index)}
                     >
                         <div
@@ -151,7 +257,13 @@ export default function MusicGrid() {
                         >
                             <div
                                 className="vinyl-image"
-                                ref={el => { vinylRefs.current[song.title] = el; }}
+                                ref={el => { 
+                                    vinylRefs.current[song.url] = el;
+                                    // Apply saved rotation immediately when element is mounted
+                                    if (el && rotationRefs.current[song.url] !== undefined) {
+                                        el.style.transform = `rotate(${rotationRefs.current[song.url]}deg)`;
+                                    }
+                                }}
                             >
                                 <Image
                                     priority={false}
@@ -191,8 +303,15 @@ export default function MusicGrid() {
                 ))}
             </div>
 
+            {filteredSongs.length === 0 && songs.length > 0 && (
+                <div className="no-results-message">
+                    <div className="text-white text-xl">検索結果が見つかりませんでした</div>
+                    <div className="text-gray-400 text-sm mt-2">別のキーワードでもう一度お試しください</div>
+                </div>
+            )}
+
             {songs.length === 0 && (
-                <div className="text-center py-12">
+                <div className="no-results-message">
                     <div className="text-gray-900 text-lg">曲を読み込んでいます...</div>
                 </div>
             )}

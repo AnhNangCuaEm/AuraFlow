@@ -12,6 +12,9 @@
   align-items: center;
   position: fixed;
   z-index: 99;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
 }
 
 .nav-expand .nav-icon {
@@ -27,15 +30,15 @@
 
 .hamburger {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 4px;
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.hamburger span {
-  width: 20px;
-  height: 3px;
-  border-radius: 2px;
+.hamburger .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background-color: #000;
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -75,7 +78,7 @@
   padding: 8px 12px;
   border-radius: 30px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
   white-space: nowrap;
   font-size: 14px;
   flex-shrink: 0;
@@ -83,6 +86,12 @@
 
 .nav-expand .nav-list li:hover {
   background-color: #f0f0f0;
+}
+
+.nav-expand .nav-list li.active {
+  background-color: #b338ff;
+  color: white;
+  transform: scale(1.05);
 }
 
 .search-input .search-bar {
@@ -101,7 +110,9 @@
 }
 
 .nav-expand.expanded {
-  width: 392px;
+  width: 394px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .nav-expand.expanded .nav-items {
@@ -116,5 +127,7 @@
 
   .nav-expand.expanded {
     width: 355px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
