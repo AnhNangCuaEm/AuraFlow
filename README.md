@@ -2,6 +2,8 @@
 
 AuraFlow is a modern music streaming application built with [Next.js](https://nextjs.org), delivering a colorful and interactive musical experience.
 
+🔗 [Live Website](https://auraflow.anhnangcuaem.com/)
+
 > **⚠️ Educational Project Disclaimer**  
 > This project is developed for educational and learning purposes only. All music files, album artwork, and related content are used under fair use for educational demonstration.
 
