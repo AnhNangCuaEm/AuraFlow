@@ -126,8 +126,6 @@
   }
 
   .nav-expand.expanded {
-    width: 355px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 360px;
   }
 }
