@@ -295,5 +295,126 @@
         "cover": "vinylarts/27.png",
         "url": "songs/27.m4a",
         "lyric": "lyrics/27.json"
+    },
+    {
+        "title": "ブルーアンバー",
+        "artist": "back number",
+        "album": "ブルーアンバー",
+        "year": 2025,
+        "genre": "J-Pop, Japanese Rock",
+        "art": "arts/28.jpg",
+        "cover": "vinylarts/28.png",
+        "url": "songs/28.m4a",
+        "lyric": "lyrics/28.json"
+    },
+    {
+        "title": "I Love You 3000",
+        "artist": "Stephanie Poetri",
+        "album": "I Love You 3000",
+        "year": 2019,
+        "genre": "Pop",
+        "art": "arts/29.jpg",
+        "cover": "vinylarts/29.png",
+        "url": "songs/29.m4a",
+        "lyric": "lyrics/29.json"
+    },
+    {
+        "title": "double take",
+        "artist": "Dhruv",
+        "album": "double take",
+        "year": 2019,
+        "genre": "Pop, Rhythm and blues",
+        "art": "arts/30.jpg",
+        "cover": "vinylarts/30.png",
+        "url": "songs/30.m4a",
+        "lyric": "lyrics/30.json"
+    },
+    {
+        "title": "At My Worst",
+        "artist": "Pink Sweat$ ft. Kehlani",
+        "album": "PINK PLANET",
+        "year": 2021,
+        "genre": "Pop, R&B/Soul",
+        "art": "arts/31.jpg",
+        "cover": "vinylarts/31.png",
+        "url": "songs/31.m4a",
+        "lyric": "lyrics/31.json"
+    },
+    {
+        "title": "Sugar",
+        "artist": "Maroon 5",
+        "album": "V",
+        "year": 2015,
+        "genre": "Pop, Rock",
+        "art": "arts/32.jpg",
+        "cover": "vinylarts/32.png",
+        "url": "songs/32.m4a",
+        "lyric": "lyrics/32.json"
+    },
+    {
+        "title": "Dynamite",
+        "artist": "BTS",
+        "album": "BE",
+        "year": 2020,
+        "genre": "K-Pop, Disco-pop",
+        "art": "arts/33.jpg",
+        "cover": "vinylarts/33.png",
+        "url": "songs/33.m4a",
+        "lyric": "lyrics/33.json"
+    },
+    {
+        "title": "Perfect",
+        "artist": "Ed Sheeran",
+        "album": "÷ (Divide)",
+        "year": 2017,
+        "genre": "Pop, Soft Rock",
+        "art": "arts/34.jpg",
+        "cover": "vinylarts/34.png",
+        "url": "songs/34.m4a",
+        "lyric": "lyrics/34.json"
+    },
+    {
+        "title": "Memories",
+        "artist": "Maroon 5",
+        "album": "Memories",
+        "year": 2019,
+        "genre": "Reggae-pop",
+        "art": "arts/35.jpg",
+        "cover": "vinylarts/35.png",
+        "url": "songs/35.m4a",
+        "lyric": "lyrics/35.json"
+    },
+    {
+        "title": "Closer",
+        "artist": "The Chainsmokers",
+        "album": "Memories...Do Not Open",
+        "year": 2017,
+        "genre": "Dance-pop, Pop",
+        "art": "arts/36.jpg",
+        "cover": "vinylarts/36.png",
+        "url": "songs/36.m4a",
+        "lyric": "lyrics/36.json"
+    },
+    {
+        "title": "We Don’t Talk Anymore",
+        "artist": "Charlie Puth ft. Selena Gomez",
+        "album": "Nine Track Mind",
+        "year": 2016,
+        "genre": "Pop",
+        "art": "arts/37.jpg",
+        "cover": "vinylarts/37.png",
+        "url": "songs/37.m4a",
+        "lyric": "lyrics/37.json"
+    },
+    {
+        "title": "Friends",
+        "artist": "Anne-Marie & Marshmello",
+        "album": "Speak Your Mind",
+        "year": 2018,
+        "genre": "Pop",
+        "art": "arts/38.jpg",
+        "cover": "vinylarts/38.png",
+        "url": "songs/38.m4a",
+        "lyric": "lyrics/38.json"
     }
 ]

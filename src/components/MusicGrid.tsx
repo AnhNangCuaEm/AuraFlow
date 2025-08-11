@@ -298,6 +298,9 @@ export default function MusicGrid() {
                             <p className="song-album" title={song.album}>
                                 {song.album} • {song.year}
                             </p>
+                            <p className="song-genre" title={song.genre}>
+                                {song.genre}
+                            </p>
                         </div>
                     </div>
                 ))}
