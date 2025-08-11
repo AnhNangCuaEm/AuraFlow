@@ -10,18 +10,12 @@ function AppContent() {
   useBackgroundSync(); // Sync background with current song
 
   return (
-    <>
-      <div className="gradient-bg">
-      </div>
-
-      {/* Main Content */}
-      <div className="min-h-screen p-4 relative overflow-hidden">
-        <main className="flex flex-col items-center container mx-auto pb-24 relative z-10">
-          <MusicGrid />
-        </main>
-        <MediaControl />
-      </div>
-    </>
+    <div className="min-h-screen p-4 relative overflow-hidden">
+      <main className="flex flex-col items-center container mx-auto pb-24 relative z-10">
+        <MusicGrid />
+      </main>
+      <MediaControl />
+    </div>
   );
 }
 

@@ -5,24 +5,7 @@ body {
   font-weight: 500;
   margin: 0;
   padding: 0;
-}
-
-/* Interactive Background Gradient - Simplified for Performance */
-:root {
-  --color-bg1: rgb(30, 10, 60);
-  --color-bg2: rgb(15, 5, 40);
-  --color-bg3: rgb(45, 20, 80);
-  --highlight-color: rgb(86, 3, 145);
-  --circle-size: 80%;
-}
-
-.gradient-bg {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: hidden;
+  min-height: 100vh;
   background: 
     /* Layer 1: Top left corner glow */
     radial-gradient(ellipse 70% 70% at 20% 20%, var(--color-bg1) 0%, transparent 50%),
@@ -36,16 +19,24 @@ body {
       var(--color-bg2) 50%, 
       var(--color-bg3) 100%
     );
-  z-index: -1;
   transition: background 0.5s ease-in-out;
+}
+
+/* Interactive Background Gradient - Simplified for Performance */
+:root {
+  --color-bg1: rgb(30, 10, 60);
+  --color-bg2: rgb(15, 5, 40);
+  --color-bg3: rgb(45, 20, 80);
+  --highlight-color: rgb(86, 3, 145);
+  --circle-size: 80%;
 }
 
 /* Mobile optimization */
 @media (max-width: 768px) {
-  .gradient-bg {
+  body {
     transition: background 0.3s ease-in-out; /* Faster transition on mobile */
   }
 }
 
-/* Simplified - no more SVG filters or complex animations */
+/* Simplified - no more complex animations or DOM elements */
 
