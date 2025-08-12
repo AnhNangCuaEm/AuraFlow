@@ -416,5 +416,49 @@
         "cover": "vinylarts/38.png",
         "url": "songs/38.m4a",
         "lyric": "lyrics/38.json"
+    },
+    {
+        "title": "ドライフラワー",
+        "artist": "優里",
+        "album": "壱",
+        "year": 2022,
+        "genre": "J-Pop, Japanese Rock",
+        "art": "arts/39.jpg",
+        "cover": "vinylarts/39.png",
+        "url": "songs/39.m4a",
+        "lyric": "lyrics/39.json"
+    },
+    {
+        "title": "Lemon",
+        "artist": "米津玄師",
+        "album": "STRAY SHEEP",
+        "year": 2018,
+        "genre": "J-Pop, Pop rock",
+        "art": "arts/40.jpg",
+        "cover": "vinylarts/40.png",
+        "url": "songs/40.m4a",
+        "lyric": "lyrics/40.json"
+    },
+    {
+        "title": "Bunny Girl",
+        "artist": "AKASAKI",
+        "album": "AKASAKI - 2024",
+        "year": 2024,
+        "genre": "J-Pop",
+        "art": "arts/41.jpg",
+        "cover": "vinylarts/41.png",
+        "url": "songs/41.m4a",
+        "lyric": "lyrics/41.json"
+    },
+    {
+        "title": "青と夏",
+        "artist": "Mrs. GREEN APPLE",
+        "album": "Attitude",
+        "year": 2019,
+        "genre": "J-Pop, Japanese Rock",
+        "art": "arts/42.jpg",
+        "cover": "vinylarts/42.png",
+        "url": "songs/42.m4a",
+        "lyric": "lyrics/42.json"
     }
 ]

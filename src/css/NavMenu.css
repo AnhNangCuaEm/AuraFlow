@@ -13,7 +13,7 @@
   position: fixed;
   z-index: 99;
   left: 50%;
-  top: 20px;
+  top: 15px;
   transform: translateX(-50%);
 }
 
@@ -110,7 +110,7 @@
 }
 
 .nav-expand.expanded {
-  width: 394px;
+  width: 395px;
   left: 50%;
   transform: translateX(-50%);
 }
