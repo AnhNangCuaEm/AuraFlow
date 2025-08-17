@@ -189,6 +189,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-right: 8px;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -821,6 +822,8 @@
 
   .control-buttons {
     gap: 0;
+    margin-left: 8px;
+    margin-right: 0;
   }
 
   /* Stack media content vertically on mobile when expanded */
