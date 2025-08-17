@@ -460,5 +460,49 @@
         "cover": "vinylarts/42.png",
         "url": "songs/42.m4a",
         "lyric": "lyrics/42.json"
+    },
+    {
+        "title": "アンコール",
+        "artist": "Yoasobi",
+        "album": "E-Side",
+        "year": 2021,
+        "genre": "J-Pop",
+        "art": "arts/43.jpg",
+        "cover": "vinylarts/43.png",
+        "url": "songs/43.m4a",
+        "lyric": "lyrics/43.json"
+    },
+    {
+        "title": "Wake Me Up",
+        "artist": "Avicii",
+        "album": "True",
+        "year": 2013,
+        "genre": "EDM, Country, Folk",
+        "art": "arts/44.jpg",
+        "cover": "vinylarts/44.png",
+        "url": "songs/44.m4a",
+        "lyric": "lyrics/44.json"
+    },
+    {
+        "title": "マリーゴールド",
+        "artist": "Aimyon",
+        "album": "Momentary Sixth Sense",
+        "year": 2019,
+        "genre": "J-Pop, Japanese Indie",
+        "art": "arts/45.jpg",
+        "cover": "vinylarts/45.png",
+        "url": "songs/45.m4a",
+        "lyric": "lyrics/45.json"
+    },
+    {
+        "title": "フィナーレ。",
+        "artist": "eill",
+        "album": "my dream box",
+        "year": 2024,
+        "genre": "J-Pop",
+        "art": "arts/46.jpg",
+        "cover": "vinylarts/46.png",
+        "url": "songs/46.m4a",
+        "lyric": "lyrics/46.json"
     }
 ]

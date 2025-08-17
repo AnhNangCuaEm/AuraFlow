@@ -40,15 +40,15 @@ body {
 
 
 /* Prevent text selection and cursor on non-interactive elements */
-* {
+/* * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
+} */
 
 /* Allow text selection only on specific interactive elements */
-input, 
+/* input, 
 textarea, 
 [contenteditable="true"],
 [contenteditable],
@@ -57,5 +57,5 @@ textarea,
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
-}
+} */
   

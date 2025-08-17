@@ -42,8 +42,7 @@
 .media-content {
   display: flex;
   align-items: center;
-  padding: 16px;
-  gap: 16px;
+  padding: 14px;
   min-height: 60px;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -290,7 +289,7 @@
 
 .expanded-content {
   display: flex;
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   gap: 20px;
   height: 440px;
   width: 100%;
@@ -439,7 +438,7 @@
   padding: 10px;
   line-height: 1.6;
   font-size: 16px;
-  border-radius: 8px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.602);
 }
 
@@ -494,6 +493,7 @@
 /* Expanded controls - additional buttons when expanded */
 .media-control.expanded .control-buttons {
   gap: 12px;
+  margin-right: 12px;
 }
 
 .loop-btn,
