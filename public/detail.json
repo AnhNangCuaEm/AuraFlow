@@ -386,7 +386,7 @@
     },
     {
         "title": "Closer",
-        "artist": "The Chainsmokers",
+        "artist": "The Chainsmokers ft. Halsey",
         "album": "Memories...Do Not Open",
         "year": 2017,
         "genre": "Dance-pop, Pop",
@@ -485,7 +485,7 @@
     },
     {
         "title": "マリーゴールド",
-        "artist": "Aimyon",
+        "artist": "あいみょん",
         "album": "Momentary Sixth Sense",
         "year": 2019,
         "genre": "J-Pop, Japanese Indie",
@@ -504,5 +504,49 @@
         "cover": "vinylarts/46.png",
         "url": "songs/46.m4a",
         "lyric": "lyrics/46.json"
+    },
+    {
+        "title": "Seven - Explicit Ver",
+        "artist": "JUNG KOOK ft. Latto",
+        "album": "Seven",
+        "year": 2023,
+        "genre": "K-Pop, R&B Soul",
+        "art": "arts/47.jpg",
+        "cover": "vinylarts/47.png",
+        "url": "songs/47.m4a",
+        "lyric": "lyrics/47.json"
+    },
+    {
+        "title": "봄여름가을겨울 (Still Life)",
+        "artist": "BIGBANG",
+        "album": "Still Life",
+        "year": 2022,
+        "genre": "Soft Rock, R&B Soul",
+        "art": "arts/48.jpg",
+        "cover": "vinylarts/48.png",
+        "url": "songs/48.m4a",
+        "lyric": "lyrics/48.json"
+    },
+    {
+        "title": "Stay With Me",
+        "artist": "Punch ft. Chanyeol",
+        "album": "Guardian: The Lonely and Great God OST Part 1",
+        "year": 2016,
+        "genre": "K-Ballad, Soundtrack",
+        "art": "arts/49.jpg",
+        "cover": "vinylarts/49.png",
+        "url": "songs/49.m4a",
+        "lyric": "lyrics/49.json"
+    },
+    {
+        "title": "ハルノヒ",
+        "artist": "あいみょん",
+        "album": "おいしいパスタがあると聞いて",
+        "year": 2020,
+        "genre": "J-Pop",
+        "art": "arts/50.jpg",
+        "cover": "vinylarts/50.png",
+        "url": "songs/50.m4a",
+        "lyric": "lyrics/50.json"
     }
 ]
