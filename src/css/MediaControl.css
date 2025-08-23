@@ -826,6 +826,10 @@
     margin-right: 0;
   }
 
+  .artist-name {
+    margin: 0 0 8px 0;
+  }
+
   /* Stack media content vertically on mobile when expanded */
   .media-control.expanded .media-content {
     flex-direction: column;
@@ -869,7 +873,7 @@
 
   /* Adjust expanded content for mobile */
   .media-control.expanded .expanded-content {
-    padding: 16px;
+    padding: 14px 14px 0;
     height: auto;
   }
 
