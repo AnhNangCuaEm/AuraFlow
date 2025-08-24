@@ -52,8 +52,7 @@ export default function QueueItem({ song, index, onRemove, isCurrentSong = false
                 </div>
 
                 <div className="queue-duration">
-                    {/* Placeholder duration - you might want to add actual duration to song data */}
-                    <span>3:45</span>
+                    <span>{song.duration}</span>
                 </div>
 
                 <button
