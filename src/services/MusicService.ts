@@ -1,4 +1,5 @@
 import { Song, LyricLine } from '@/types/music';
+import { parseLyrics } from '@/utils/lyricsParser';
 
 export class MusicService {
     private static instance: MusicService;
@@ -52,8 +53,17 @@ export class MusicService {
     public async loadLyrics(lyricPath: string): Promise<LyricLine[]> {
         try {
             const response = await fetch(`/${lyricPath}`);
-            const lyrics = await response.json();
-            return lyrics;
+            const text = await response.text();
+
+            if (lyricPath.endsWith('.lrc')) {
+                // Raw LRC text format
+                const lines = text.split('\n').filter(line => line.trim());
+                return parseLyrics(lines);
+            } else {
+                // JSON object format
+                const data: unknown = JSON.parse(text);
+                return parseLyrics(data);
+            }
         } catch (error) {
             console.error('Error loading lyrics:', error);
             return [];
